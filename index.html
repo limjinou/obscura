@@ -1969,6 +1969,211 @@
                 flex-direction: column;
             }
         }
+
+        /* =============================================
+           모바일 최적화 — 600px 이하 보강
+           ============================================= */
+        @media (max-width: 600px) {
+
+            /* --- 히어로(소개) 섹션 --- */
+            .hero {
+                height: auto;
+                min-height: 100dvh;
+                padding: 4.5rem 1.25rem 2.5rem;
+            }
+
+            /* 배경 텍스트: 작은 화면에서 불필요한 렌더링 제거 */
+            .hero-bg-text {
+                display: none;
+            }
+
+            /* 강제 줄바꿈 태그 제거 → 자연스러운 텍스트 흐름 */
+            .pull-quote br {
+                display: none;
+            }
+
+            .pull-quote {
+                font-size: 0.82rem;
+                line-height: 1.85;
+                padding: 0 0.25rem;
+            }
+
+            .rec-wrapper {
+                margin: 1.2rem auto;
+            }
+
+            .hero-meta.centered {
+                padding: 0 0.25rem;
+                gap: 0.3rem;
+            }
+
+            .meta-ko {
+                word-break: keep-all;
+                line-height: 1.6;
+            }
+
+            .meta-en {
+                font-size: 0.48rem;
+                word-break: break-all;
+                line-height: 1.6;
+                letter-spacing: 0.03em;
+            }
+
+            .meta-email {
+                font-size: 0.7rem;
+                margin-top: 0.4rem;
+            }
+
+            /* --- 영상 플레이어 컨트롤 --- */
+            .floating-controls {
+                bottom: 1rem;
+                width: calc(100% - 2rem);
+            }
+
+            .transport {
+                gap: 1.5rem;
+            }
+
+            /* 터치 타겟 확대 (최소 44px 권장) */
+            .play-pause {
+                width: 44px;
+                height: 44px;
+            }
+
+            .tc-display {
+                font-size: 0.65rem;
+                letter-spacing: 0.03em;
+            }
+
+            .meta-text {
+                font-size: 0.6rem;
+                padding: 6px 2px;
+            }
+
+            /* --- 프로젝트 아카이브 --- */
+            .project-index {
+                padding: 4vh 1.25rem;
+            }
+
+            /* ROLE, DATE 컬럼: 모바일에서 숨김 */
+            .project-table td:nth-child(3),
+            .project-table td:nth-child(4) {
+                display: none;
+            }
+
+            /* 스틸 이미지 가로 스크롤 */
+            .reel-strip {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 4px;
+                flex-wrap: nowrap;
+            }
+
+            /* --- 크루 섹션 내부 스크롤 개선 --- */
+            .content-wrapper {
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* --- RB 섹션 --- */
+            .rb-wrapper {
+                padding: 3rem 0.75rem 0;
+            }
+
+            .rb-section-title {
+                font-size: 2rem;
+            }
+
+            /* iOS 자동 줌인 방지: font-size 반드시 16px 이상 */
+            .rb-cell-input,
+            .rb-cell-textarea {
+                font-size: 16px;
+            }
+
+            /* 제출 버튼 — 풀 너비 터치 타겟 */
+            .rb-submit-area {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .rb-btn-submit {
+                width: 100%;
+                padding: 16px;
+                font-size: 0.7rem;
+                text-align: center;
+            }
+
+            /* RB 워크플로 노드 */
+            .rb-node {
+                max-width: none;
+                width: 100%;
+            }
+
+            /* RB 컨택트 정보 블록 */
+            .rb-info-content {
+                font-size: 1rem;
+            }
+        }
+
+        /* =============================================
+           모바일 최적화 — 480px 이하 추가
+           ============================================= */
+        @media (max-width: 480px) {
+
+            /* 프로젝트 테이블: 단일 컬럼 */
+            .project-table tr {
+                grid-template-columns: 1fr !important;
+            }
+
+            .project-table td:first-child {
+                grid-column: span 1 !important;
+            }
+
+            /* TYPE 컬럼도 숨김 (PROJECT + STILL만 노출) */
+            .project-table td:nth-child(2) {
+                display: none;
+            }
+
+            /* 섹션 타이틀 축소 */
+            .app-section-title {
+                font-size: 1.75rem;
+            }
+
+            .rb-section-title {
+                font-size: 1.75rem;
+            }
+
+            /* 크루 카드 이름 축소 */
+            .rb-card-name {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+            }
+
+            /* RB 컨테이너 모서리 */
+            .rb-container {
+                border-radius: 16px;
+            }
+
+            /* 앱 컨테이너 모서리 */
+            .app-container {
+                border-radius: 16px;
+            }
+        }
+
+        /* =============================================
+           터치 기기: 호버 기반 효과 비활성화
+           ============================================= */
+        @media (hover: none) {
+            /* 마우스 호버 전용 플로트 프리뷰 숨김 */
+            #archive-float-preview {
+                display: none !important;
+            }
+
+            /* 스크러버 호버 효과 제거 */
+            .scrubber-wrapper:hover .scrubber-track {
+                height: 4px;
+            }
+        }
     </style>
 </head>
 
@@ -2526,6 +2731,33 @@
             loadVideo(currentVideoIndex < playlist.length - 1 ? currentVideoIndex + 1 : 0);
         });
 
+        // 스크러버 터치 드래그 지원 (모바일)
+        scrubberWrapper.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = scrubberWrapper.getBoundingClientRect();
+            const ratio = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
+            const newIndex = Math.min(Math.floor(ratio * playlist.length), playlist.length - 1);
+            const ratioWithin = (ratio * playlist.length) - newIndex;
+            if (newIndex !== currentVideoIndex) {
+                videoElement.style.opacity = 0;
+                setTimeout(() => {
+                    currentVideoIndex = newIndex;
+                    const d = playlist[currentVideoIndex];
+                    videoElement.src = d.url;
+                    projectInfoElement.innerHTML = `<span class="project-text">${d.title} &nbsp;/&nbsp; ${d.genre}</span>`;
+                    videoElement.load();
+                    videoElement.addEventListener('loadedmetadata', function () {
+                        videoElement.currentTime = ratioWithin * videoElement.duration;
+                        videoElement.style.opacity = 1;
+                        videoElement.play();
+                    }, { once: true });
+                }, 300);
+            } else {
+                videoElement.currentTime = ratioWithin * videoElement.duration;
+            }
+        }, { passive: false });
+
         scrubberWrapper.addEventListener('click', (e) => {
             const rect = scrubberWrapper.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
@@ -2675,14 +2907,21 @@
             }
         }, { passive: true });
 
-        // --- Project Archive Hover Reveal ---
+        // --- Project Archive Hover Reveal (데스크탑 전용) ---
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
         const projectRows = document.querySelectorAll('.project-table tbody tr');
         const floatPreview = document.createElement('div');
         floatPreview.id = 'archive-float-preview';
         document.body.appendChild(floatPreview);
 
+        // 터치 기기에서는 호버 프리뷰 비활성화
+        if (isTouchDevice) {
+            floatPreview.style.display = 'none';
+        }
+
         projectRows.forEach(row => {
             row.addEventListener('mouseenter', () => {
+                if (isTouchDevice) return;
                 const firstPreview = row.querySelector('.frame-preview');
                 if (firstPreview) {
                     let bgUrl = firstPreview.style.backgroundImage;
@@ -2696,12 +2935,13 @@
             });
 
             row.addEventListener('mousemove', (e) => {
-                // Offset slightly from cursor for better visibility
+                if (isTouchDevice) return;
                 floatPreview.style.left = e.clientX + 30 + 'px';
                 floatPreview.style.top = e.clientY - 110 + 'px';
             });
 
             row.addEventListener('mouseleave', () => {
+                if (isTouchDevice) return;
                 floatPreview.classList.remove('active');
             });
         });

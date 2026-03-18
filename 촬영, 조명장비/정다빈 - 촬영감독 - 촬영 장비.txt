@@ -1,0 +1,38 @@
+CAMERA
+* Arri Alexa mini
+* Fujifilm GFX100ii
+* Panasonic S1m2
+LENSE
+* DzoFilm Arles Prime (14, 25, 35, 50, 75, 90, 100)
+* DzoFilm Pictor Zoom (12-25, 20-55, 50-125)
+* Leica R Vintage Cinemod (16, 24, 28, 35, 50, 60, 90, 135)
+Light
+* Aputure 1200X * 2
+* Aputure 600C mk2 * 2
+* Aputure 80C * 4
+* Amaran 300C * 1
+* Aputure F21C, F22C
+* Aputure B7c 8 Kit
+* Aputure MC Pro 8 kit
+GIMBAL
+* Movi Pro (Ignite)
+* Ronin rs3 Pro
+GRIP
+* Ilwoo minijip, Dolly
+* Greenbull Slider
+MONITOR
+* SmallHD Cine7 * 3
+* Hollyland Mars M1 Duo
+* Vaxis Storm 3000
+* Atomos sumo 19SE
+* Osse 15' megamon
+EDITING SYSTEM
+* Hardware:
+    * Apple Macbook Pro 16
+    * LG 34UM88C
+    * EIZO CG2700
+    * Genelec 8030
+    * Apogee Duet
+* Software:
+    * Final Cut Pro X, Davinci Resolve 18
+    * Dehancer, DCTL, Neat Video

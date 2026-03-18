@@ -1,0 +1,16 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node modules
+node_modules/
+
+# Build directories
+dist/
+build/
+.next/
+.netlify/
+
+# Secrets
+.env
+*.pem

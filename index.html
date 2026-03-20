@@ -2801,19 +2801,20 @@
             .pax-section {
                 height: auto;
                 min-height: 100vh;
-                padding-bottom: 60px;
+                padding: 100px 24px 80px;
+                background: #000;
                 overflow-y: visible;
             }
 
             .pax-bg-stack {
-                position: absolute;
-                height: 100%;
-                z-index: 0;
+                display: none;
+                /* Hide big bg stack on mobile gallery */
             }
 
             .pax-ui-layer {
                 display: block;
                 position: relative;
+                padding: 0;
             }
 
             .pax-center-stage {
@@ -2821,30 +2822,40 @@
             }
 
             .pax-control-desk {
-                padding: 80px 16px 40px;
+                padding: 0;
                 display: block;
             }
 
+            .pax-carousel-wrapper {
+                overflow: visible;
+            }
+
             .pax-track {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 60px;
+                /* Generous spacing between frames */
                 padding: 0;
-                overflow-x: visible;
+                opacity: 1 !important;
+                transform: none !important;
             }
 
             .pax-thumb-item {
                 width: 100%;
                 margin: 0;
                 transform: none !important;
+                cursor: default;
             }
 
             .pax-thumb-image-wrapper {
+                width: 100%;
                 height: auto;
                 aspect-ratio: 9/16;
-                border-radius: 4px;
+                border: 0.5px solid rgba(255, 255, 255, 0.15);
+                border-radius: 2px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
                 filter: none;
-                border: 1px solid rgba(255, 255, 255, 0.05);
+                transition: transform 0.3s ease;
             }
 
             .pax-metadata-panel {
@@ -2853,33 +2864,46 @@
                 left: auto;
                 opacity: 1;
                 transform: none;
-                display: flex;
-                flex-direction: column;
-                gap: 2px;
+                display: block;
                 background: transparent;
                 border: none;
-                padding: 12px 0 0 0;
+                padding: 24px 0 0 0;
                 backdrop-filter: none;
                 -webkit-backdrop-filter: none;
+                text-align: center;
             }
 
             .pax-meta-lbl {
-                display: none;
+                display: block;
+                font-size: 7px;
+                color: rgba(255, 255, 255, 0.2);
+                margin-top: 12px;
+                letter-spacing: 0.2em;
             }
 
             .pax-meta-val {
-                text-align: left;
-                font-size: 0.6rem;
-                color: rgba(255, 255, 255, 0.6);
+                text-align: center;
+                font-size: 0.7rem;
+                color: rgba(255, 255, 255, 0.5);
                 white-space: normal;
-                line-height: 1.4;
+                line-height: 1.6;
+                margin-bottom: 2px;
+                letter-spacing: 0.05em;
             }
 
             .pax-meta-val:first-of-type {
                 color: #fff;
-                font-size: 0.75rem;
-                font-weight: 700;
-                margin-bottom: 2px;
+                font-size: 1.1rem;
+                font-weight: 500;
+                margin-bottom: 8px;
+                letter-spacing: 0.1em;
+                font-family: var(--font-display);
+            }
+
+            /* Hide More+ btn on mobile gallery for simplicity */
+            .pax-roster-toggle {
+                margin-bottom: 40px;
+                justify-content: center;
             }
         }
 

@@ -2635,6 +2635,54 @@
             position: relative;
         }
 
+        /* 드래그/키보드 힌트 */
+        .pax-drag-hint {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 0.5rem 0 0.2rem;
+            opacity: 0.35;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .pax-drag-hint.hidden {
+            opacity: 0;
+        }
+
+        .pax-drag-hint-text {
+            font-family: var(--font-mono, monospace);
+            font-size: 0.62rem;
+            letter-spacing: 0.18em;
+            color: #fff;
+        }
+
+        .pax-drag-hint-icon {
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        .pax-hint-arrow-right {
+            animation: paxArrowPulse 1.4s ease-in-out infinite;
+        }
+
+        @keyframes paxArrowPulse {
+
+            0%,
+            100% {
+                transform: translateX(0);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translateX(4px);
+                opacity: 1;
+            }
+        }
+
         .pax-track {
             display: flex;
             gap: 12px;
@@ -2646,6 +2694,14 @@
             -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
             padding: 0 15% 8px;
             -webkit-overflow-scrolling: touch;
+        }
+
+        /* 이미지 고스트 드래그 완전 차단 */
+        .pax-track img,
+        .pax-thumb-image-wrapper img {
+            -webkit-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
         }
 
         .pax-track::-webkit-scrollbar {
@@ -3221,6 +3277,28 @@
                     </div>
                 </div>
 
+                <!-- 드래그/키보드 안내 힌트 -->
+                <div class="pax-drag-hint" id="pax-drag-hint">
+                    <!-- 왼쪽 화살표 -->
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                    <!-- 손 드래그 아이콘 -->
+                    <span class="pax-drag-hint-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <path
+                                d="M18 11V9a2 2 0 0 0-4 0v-1a2 2 0 0 0-4 0V4a2 2 0 0 0-4 0v8l-1.5-2.5a1.5 1.5 0 0 0-2.6 1.5L5 16a8 8 0 0 0 16 0v-5" />
+                        </svg>
+                    </span>
+                    <span class="pax-drag-hint-text">DRAG / ← → KEY</span>
+                    <!-- 오른쪽 화살표 (애니메이션) -->
+                    <svg class="pax-hint-arrow-right" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </div>
+
             </footer>
         </div>
     </section>
@@ -3247,17 +3325,16 @@
                         <!-- 01 JUNG DA-BIN | 홀수 → 이미지 좌 -->
                         <div class="crew-roster-item">
                             <div class="crew-roster-img">
-                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1600&auto=format&fit=crop"
-                                    alt="JUNG DA-BIN">
-                                <div class="crew-img-meta">CAM A / ARRI ALEXA 35 / 35MM ANAMORPHIC</div>
+                                <img src="./크루 인덱스/정다빈/프로필1.jpg" alt="JUNG DA-BIN">
+                                <div class="crew-img-meta">CINEMATOGRAPHER / COLORIST / MFA CINEMATOGRAPHY</div>
                             </div>
                             <div class="crew-roster-info">
-                                <div class="crew-roster-role">[ DIR. &amp; DP. ]</div>
+                                <div class="crew-roster-role">[ DP. &amp; COLORIST ]</div>
                                 <h3 class="crew-roster-name">JUNG<br>DA-BIN</h3>
                                 <div class="crew-roster-specs">
-                                    <span>SPECIALTY: DIRECTION / CINEMATOGRAPHY</span>
-                                    <span>CAM PACKAGE: ARRI, FX3 MID–LARGE SCALE</span>
-                                    <span>BASE: GOYANG, KOREA</span>
+                                    <span>SPECIALTY: CINEMATOGRAPHY / COLOR GRADING</span>
+                                    <span>EDUCATION: K-ARTS MFA CINEMATOGRAPHY</span>
+                                    <span>EXPERIENCE: 30+ MAJOR WORKS SINCE 2016</span>
                                 </div>
                             </div>
                         </div>
@@ -3912,6 +3989,88 @@
                     }
                 }, { threshold: 0.3 });
                 obs.observe(document.getElementById('pax-section'));
+            }
+
+            // ── 마우스 드래그 스크롤 ──
+            if (paxTrack) {
+                let isDragging = false, hasDragged = false, startX = 0, scrollLeft = 0;
+
+                // 기본 커서를 grab으로
+                paxTrack.style.cursor = 'grab';
+
+                // 브라우저 기본 이미지 드래그(고스트) 완전 차단
+                paxTrack.addEventListener('dragstart', (e) => e.preventDefault());
+                paxTrack.querySelectorAll('img').forEach(img => {
+                    img.setAttribute('draggable', 'false');
+                });
+
+                paxTrack.addEventListener('pointerdown', (e) => {
+                    // 버튼/링크 직접 클릭은 드래그 무시
+                    if (e.target.closest('button, a')) return;
+                    e.preventDefault(); // 이미지 고스트 드래그 방지
+                    isDragging = true;
+                    hasDragged = false;
+                    startX = e.clientX;
+                    scrollLeft = paxTrack.scrollLeft;
+                    try { paxTrack.setPointerCapture(e.pointerId); } catch (_) { }
+                    paxTrack.style.cursor = 'grabbing';
+                    paxTrack.style.userSelect = 'none';
+                    paxTrack.style.scrollSnapType = 'none';
+                });
+
+                paxTrack.addEventListener('pointermove', (e) => {
+                    if (!isDragging) return;
+                    const dx = e.clientX - startX;
+                    if (Math.abs(dx) > 4) hasDragged = true;
+                    paxTrack.scrollLeft = scrollLeft - dx;
+                });
+
+                const endDrag = () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    paxTrack.style.cursor = 'grab';
+                    paxTrack.style.userSelect = '';
+                    paxTrack.style.scrollSnapType = 'x mandatory';
+                };
+                paxTrack.addEventListener('pointerup', endDrag);
+                paxTrack.addEventListener('pointercancel', endDrag);
+
+                // 드래그 후 click 이벤트 억제 (썸네일 오클릭 방지)
+                paxTrack.addEventListener('click', (e) => {
+                    if (hasDragged) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        hasDragged = false;
+                    }
+                }, true);
+            }
+
+            // ── 키보드 ← → 내비게이션 ──
+            document.addEventListener('keydown', (e) => {
+                const paxSection = document.getElementById('pax-section');
+                if (!paxSection) return;
+                const rect = paxSection.getBoundingClientRect();
+                // pax 섹션이 뷰포트에 보일 때만 반응
+                if (rect.top > window.innerHeight || rect.bottom < 0) return;
+                if (!paxTrack) return;
+                const itemWidth = paxTrack.querySelector('.pax-thumb-item')?.offsetWidth + 12 || 200;
+                if (e.key === 'ArrowRight') {
+                    paxTrack.scrollBy({ left: itemWidth, behavior: 'smooth' });
+                    e.preventDefault();
+                } else if (e.key === 'ArrowLeft') {
+                    paxTrack.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+                    e.preventDefault();
+                }
+            });
+
+            // ── 드래그/키보드 힌트: 첫 인터랙션 후 페이드아웃 ──
+            const dragHint = document.getElementById('pax-drag-hint');
+            if (dragHint && paxTrack) {
+                const hideHint = () => dragHint.classList.add('hidden');
+                paxTrack.addEventListener('pointerdown', hideHint, { once: true });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') hideHint();
+                }, { once: true });
             }
         })();
     </script>

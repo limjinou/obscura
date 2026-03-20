@@ -15,7 +15,15 @@
       "Bash(ls \"C:/Users/임진우/OneDrive/Desktop/obscura/프로젝트 아카이브/\"*/)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:57124/index.html\")",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://127.0.0.1:57124/index.html\")",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://127.0.0.1:8080/index.html\")"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://127.0.0.1:8080/index.html\")",
+      "Bash(for d:*)",
+      "Bash(do echo:*)",
+      "Read(//c/Users/임진우/OneDrive/Desktop/obscura/**)",
+      "Bash(done)",
+      "Bash(powershell -Command \"Get-ChildItem ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\프로젝트 아카이브'' | ForEach-Object { Write-Host ''=== '' $_Name '' ===''; Get-ChildItem $_FullName | Select-Object Name }\")",
+      "Bash(powershell -Command \":*)",
+      "Bash(powershell -Command \"Get-ChildItem -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\프로젝트 아카이브'' -Recurse -Depth 1 | Select-Object FullName\")",
+      "Bash(powershell -Command \"Get-Content -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\프로젝트 아카이브\\\\ARTE\\\\설명.txt'' -Encoding UTF8\")"
     ]
   }
 }

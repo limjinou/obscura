@@ -23,7 +23,14 @@
       "Bash(powershell -Command \"Get-ChildItem ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\프로젝트 아카이브'' | ForEach-Object { Write-Host ''=== '' $_Name '' ===''; Get-ChildItem $_FullName | Select-Object Name }\")",
       "Bash(powershell -Command \":*)",
       "Bash(powershell -Command \"Get-ChildItem -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\프로젝트 아카이브'' -Recurse -Depth 1 | Select-Object FullName\")",
-      "Bash(powershell -Command \"Get-Content -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\프로젝트 아카이브\\\\ARTE\\\\설명.txt'' -Encoding UTF8\")"
+      "Bash(powershell -Command \"Get-Content -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\프로젝트 아카이브\\\\ARTE\\\\설명.txt'' -Encoding UTF8\")",
+      "Bash(powershell -Command \"Get-ChildItem -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\프로젝트 아카이브'' -Recurse | Select-Object -ExpandProperty FullName\")",
+      "Bash(python3 -c \":*)",
+      "Bash(python3:*)",
+      "Bash(powershell -Command \"[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Get-ChildItem -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\프로젝트 아카이브'' -Directory | Select-Object -ExpandProperty Name | Out-File -FilePath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\folderlist.txt'' -Encoding UTF8\")",
+      "Bash(Out-String)",
+      "Bash(Write-Output)",
+      "Bash(del \"C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\folderlist.txt\")"
     ]
   }
 }

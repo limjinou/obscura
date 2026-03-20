@@ -105,10 +105,10 @@
             display: flex;
             align-items: center;
             padding: 0 2.5rem;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-bottom: none;
         }
 
         .site-nav-logo {
@@ -2302,7 +2302,10 @@
 
             /* RB 컨테이너 모서리 */
             .rb-container {
-                border-radius: 16px;
+                border-radius: 0;
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
             }
 
             /* 앱 컨테이너 모서리 */
@@ -2797,11 +2800,33 @@
             text-overflow: ellipsis;
         }
 
+        /* 모바일 전용 헤더 - 데스크탑에서는 숨김 */
+        .pax-mobile-header {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .pax-mobile-header {
+                display: block;
+                padding-bottom: 24px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+                margin-bottom: 0;
+            }
+
+            .pax-mobile-section-label {
+                font-family: var(--font-display);
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                color: rgba(255, 255, 255, 0.4);
+                text-transform: uppercase;
+            }
+        }
+
         @media (max-width: 768px) {
             .pax-section {
                 height: auto;
                 min-height: 100vh;
-                padding: 60px 20px;
+                padding: 80px 16px 60px;
                 background: #000;
                 display: block !important;
                 visibility: visible !important;
@@ -2809,13 +2834,7 @@
             }
 
             .pax-bg-stack {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 0;
-                opacity: 0.3;
+                display: none;
             }
 
             .pax-ui-layer {
@@ -2829,35 +2848,62 @@
             }
 
             .pax-control-desk {
+                position: relative;
                 padding: 0;
                 display: block;
+                bottom: auto;
+                left: auto;
+                width: 100%;
+            }
+
+            /* 필터 버튼 숨김 */
+            .pax-roster-toggle {
+                display: none;
+            }
+
+            .pax-carousel-wrapper {
+                overflow: visible;
             }
 
             .pax-track {
-                display: flex;
-                flex-direction: column;
-                gap: 40px;
-                padding-top: 40px;
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 0;
+                padding-top: 0;
                 opacity: 1 !important;
                 transform: none !important;
+                overflow: visible;
             }
 
             .pax-thumb-item {
                 width: 100%;
-                margin-bottom: 20px;
+                margin-bottom: 0;
                 transform: none !important;
                 display: block !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .pax-thumb-item:last-child {
+                border-bottom: none;
             }
 
             .pax-thumb-image-wrapper {
                 width: 100%;
                 height: auto;
                 aspect-ratio: 16/9;
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                border: none;
                 filter: none !important;
                 background: #111;
+                overflow: hidden;
             }
 
+            .pax-thumb-image-wrapper img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* 메타데이터: 프로젝트명 + 타입만 간결하게 */
             .pax-metadata-panel {
                 position: relative;
                 bottom: auto;
@@ -2867,49 +2913,39 @@
                 display: block !important;
                 background: transparent;
                 border: none;
-                padding: 15px 0;
+                padding: 12px 0 20px;
                 text-align: left;
                 pointer-events: auto;
             }
 
             .pax-meta-lbl {
-                display: inline-block;
-                width: 60px;
-                font-size: 8px;
-                color: rgba(255, 255, 255, 0.3);
-                text-transform: uppercase;
-                margin-bottom: 2px;
+                display: none;
             }
 
             .pax-meta-val {
-                display: inline-block;
+                display: none;
+            }
+
+            /* 프로젝트명 (2번째 span = 1번째 val) */
+            .pax-metadata-panel span:nth-child(2) {
+                display: block;
+                font-size: 1rem;
+                font-weight: 600;
+                color: #fff;
+                font-family: var(--font-display);
+                letter-spacing: 0.05em;
                 text-align: left;
-                font-size: 10px;
-                color: rgba(255, 255, 255, 0.8);
                 margin-bottom: 4px;
             }
 
-            .pax-meta-val:first-of-type {
+            /* 타입 (4번째 span = 2번째 val) */
+            .pax-metadata-panel span:nth-child(4) {
                 display: block;
-                font-size: 1.2rem;
-                font-weight: 600;
-                color: #fff;
-                margin-bottom: 10px;
-                font-family: var(--font-display);
-            }
-
-            .pax-roster-toggle {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-                justify-content: flex-start;
-                margin-bottom: 30px;
-            }
-
-            .pax-toggle-btn {
-                padding: 8px 12px;
-                font-size: 10px;
-                border: 1px solid rgba(255, 255, 255, 0.2);
+                font-size: 9px;
+                color: rgba(255, 255, 255, 0.4);
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                text-align: left;
             }
         }
 
@@ -3037,6 +3073,11 @@
         </div>
 
         <div class="pax-ui-layer">
+
+            <!-- 모바일 전용 섹션 헤더 -->
+            <div class="pax-mobile-header">
+                <div class="pax-mobile-section-label">PROJECT ARCHIVE</div>
+            </div>
 
             <main class="pax-center-stage">
                 <div class="pax-viewfinder">

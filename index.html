@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OBSCURA | High-End Film & Production Collective</title>
     <meta name="description"
         content="OBSCURA is a high-end film and production collective specializing in commercials, music videos, and branded content. From main production to specialized unit support, we deliver tailored solutions with uncompromising quality.">
@@ -105,8 +105,10 @@
             display: flex;
             align-items: center;
             padding: 0 2.5rem;
-            background: transparent;
-            border-bottom: 1px solid transparent;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .site-nav-logo {
@@ -142,7 +144,7 @@
             align-items: center;
         }
 
-        .site-nav-links li + li::before {
+        .site-nav-links li+li::before {
             content: '';
             display: block;
             width: 40px;
@@ -169,10 +171,30 @@
         }
 
         @media (max-width: 768px) {
-            .site-nav { padding: 0 1.25rem; }
-            .site-nav-divider { margin: 0 1rem; min-width: 16px; }
-            .site-nav-links li + li::before { width: 20px; margin: 0 0.75rem; }
-            .site-nav-links a { font-size: 0.55rem; letter-spacing: 0.14em; }
+            .site-nav {
+                padding: 0 1rem;
+                height: 56px;
+            }
+
+            .site-nav-logo {
+                font-size: 0.9rem;
+                letter-spacing: 0.05em;
+            }
+
+            .site-nav-divider {
+                margin: 0 0.75rem;
+                min-width: 8px;
+            }
+
+            .site-nav-links li+li::before {
+                width: 12px;
+                margin: 0 0.5rem;
+            }
+
+            .site-nav-links a {
+                font-size: 0.5rem;
+                letter-spacing: 0.1em;
+            }
         }
 
         .viewport {
@@ -461,12 +483,11 @@
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 11vw, 13rem);
-            /* 폴백: min() 미지원 브라우저용 */
-            font-size: clamp(2.5rem, min(11vw, 15vh), 13rem);
+            font-size: clamp(3rem, 15vw, 13rem);
+            line-height: 0.9;
             color: var(--accent);
             flex-shrink: 1;
-            margin-bottom: 0;
+            margin-bottom: 0.5rem;
         }
 
         /* 유동 간격: 콘텐츠 사이 빈 공간이 뷰포트에 맞게 자동 조절 */
@@ -478,13 +499,13 @@
 
         .pull-quote {
             max-width: 800px;
-            font-size: clamp(0.75rem, 1.3vh, 1rem);
-            line-height: 1.5;
-            line-height: clamp(1.3em, calc(0.2vh + 1em), 1.6em);
+            font-size: clamp(0.85rem, 1.4vh, 1.05rem);
+            line-height: 1.6;
             text-align: center;
-            word-spacing: 0.2em;
-            letter-spacing: 0.08em;
+            word-spacing: 0.15em;
+            letter-spacing: 0.05em;
             flex-shrink: 1;
+            color: rgba(244, 244, 245, 0.85);
         }
 
         .rec-wrapper {
@@ -1487,11 +1508,19 @@
             animation: pulse 2s infinite;
         }
 
+        .rb-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 32px 64px;
+            padding-top: 48px;
+        }
+
         .rb-content-wrapper {
             flex: 1;
             display: flex;
             flex-direction: column;
-            padding: 0 var(--rb-spacing-xl);
+            padding: 0 64px;
             overflow: visible;
             position: relative;
             padding-bottom: 60px;
@@ -1550,13 +1579,22 @@
         }
 
         /* 홀수: 이미지 좌, 텍스트 우 */
-        .crew-roster-item:nth-child(odd)  { flex-direction: row; }
+        .crew-roster-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
         /* 짝수: 이미지 우, 텍스트 좌 */
-        .crew-roster-item:nth-child(even) { flex-direction: row-reverse; }
+        .crew-roster-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
 
-        .crew-roster-item:nth-child(even) .crew-roster-info { text-align: right; }
+        .crew-roster-item:nth-child(even) .crew-roster-info {
+            text-align: right;
+        }
 
-        .crew-roster-info { flex: 1; }
+        .crew-roster-info {
+            flex: 1;
+        }
 
         /* 이미지 컨테이너: 고정 height 기준 9:16 portrait */
         .crew-roster-img {
@@ -1942,9 +1980,20 @@
         }
 
         @media (max-width: 1200px) {
-            .crew-roster-item:nth-child(n) .crew-roster-img  { grid-column: 1 / -1; grid-row: 1; }
-            .crew-roster-item:nth-child(n) .crew-roster-info { grid-column: 1 / -1; grid-row: 2; text-align: left; }
-            .crew-roster-name { font-size: 2.8rem; }
+            .crew-roster-item:nth-child(n) .crew-roster-img {
+                grid-column: 1 / -1;
+                grid-row: 1;
+            }
+
+            .crew-roster-item:nth-child(n) .crew-roster-info {
+                grid-column: 1 / -1;
+                grid-row: 2;
+                text-align: left;
+            }
+
+            .crew-roster-name {
+                font-size: 2.8rem;
+            }
 
             .rb-section-title {
                 font-size: 2.5rem;
@@ -1997,20 +2046,42 @@
         }
 
         @media (max-width: 600px) {
-            .crew-roster { gap: 3rem; }
-            .crew-roster-name { font-size: 2.2rem; }
+            .crew-roster {
+                gap: 4rem;
+            }
+
+            .crew-roster-item {
+                flex-direction: column !important;
+                gap: 1.5rem !important;
+                align-items: flex-start !important;
+            }
+
+            .crew-roster-img {
+                width: 100%;
+                height: 45vh;
+                max-height: 400px;
+            }
+
+            .crew-roster-info {
+                text-align: left !important;
+                width: 100%;
+            }
+
+            .crew-roster-name {
+                font-size: clamp(2.5rem, 12vw, 3.5rem);
+            }
 
             .rb-header {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 gap: 24px;
-                padding: var(--rb-spacing-md);
+                padding: 1.5rem;
                 padding-top: 48px;
             }
 
             .rb-content-wrapper {
-                padding: 0 var(--rb-spacing-md);
+                padding: 0 1.5rem;
             }
 
             .rb-section-header {
@@ -2244,6 +2315,7 @@
            터치 기기: 호버 기반 효과 비활성화
            ============================================= */
         @media (hover: none) {
+
             /* 마우스 호버 전용 플로트 프리뷰 숨김 */
             #archive-float-preview {
                 display: none !important;
@@ -2266,12 +2338,14 @@
             background: #030303;
             border-top: 1px solid var(--grid-line);
         }
+
         .pax-bg-stack {
             position: absolute;
             inset: 0;
             background: #030303;
             z-index: 0;
         }
+
         .pax-bg-plate {
             position: absolute;
             inset: 0;
@@ -2282,29 +2356,33 @@
             transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 6s linear;
             transform: scale(1.05);
         }
+
         .pax-bg-plate.active {
             opacity: 0.55;
             transform: scale(1);
         }
+
         .pax-vignette {
             position: absolute;
             inset: 0;
             z-index: 1;
             background:
                 radial-gradient(circle at center, transparent 30%, #000 120%),
-                linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 18%, transparent 65%, rgba(0,0,0,0.95) 100%);
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, transparent 18%, transparent 65%, rgba(0, 0, 0, 0.95) 100%);
             pointer-events: none;
         }
+
         .pax-grid-overlay {
             position: absolute;
             inset: 0;
             background-image:
-                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 25% 25%;
             z-index: 1;
             pointer-events: none;
         }
+
         .pax-ui-layer {
             position: absolute;
             inset: 0;
@@ -2312,17 +2390,20 @@
             display: flex;
             flex-direction: column;
         }
+
         .pax-header {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
             padding: 24px 32px;
             align-items: start;
         }
+
         .pax-brand-cluster {
             display: flex;
             flex-direction: column;
             gap: 4px;
         }
+
         .pax-brand-name {
             font-family: var(--font-mono);
             font-size: 11px;
@@ -2331,29 +2412,36 @@
             text-transform: uppercase;
             color: var(--white);
         }
+
         .pax-brand-sub {
             font-family: var(--font-mono);
             font-size: 9px;
-            color: rgba(255,255,255,0.3);
+            color: rgba(255, 255, 255, 0.3);
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
+
         .pax-system-status {
             display: flex;
             align-items: center;
             gap: 8px;
             font-family: var(--font-mono);
             font-size: 10px;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255, 255, 255, 0.6);
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 6px 12px;
             border-radius: 2px;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(4px);
         }
-        .pax-sys-label { color: rgba(255,255,255,0.3); margin-right: 4px; }
+
+        .pax-sys-label {
+            color: rgba(255, 255, 255, 0.3);
+            margin-right: 4px;
+        }
+
         .pax-rec-dot {
             display: inline-block;
             width: 6px;
@@ -2362,14 +2450,16 @@
             border-radius: 50%;
             animation: recBlink 1s infinite;
         }
+
         .pax-nav-links {
             justify-self: end;
             display: flex;
             gap: 32px;
             align-items: center;
         }
+
         .pax-nav-links a {
-            color: rgba(255,255,255,0.6);
+            color: rgba(255, 255, 255, 0.6);
             text-decoration: none;
             font-family: var(--font-mono);
             font-size: 10px;
@@ -2377,7 +2467,11 @@
             text-transform: uppercase;
             transition: color 0.3s ease;
         }
-        .pax-nav-links a:hover { color: #fff; }
+
+        .pax-nav-links a:hover {
+            color: #fff;
+        }
+
         .pax-center-stage {
             position: absolute;
             inset: 0;
@@ -2387,31 +2481,55 @@
             justify-content: center;
             pointer-events: none;
         }
+
         .pax-viewfinder {
             position: relative;
             padding: 20px 48px;
         }
-        .pax-viewfinder::before, .pax-viewfinder::after {
+
+        .pax-viewfinder::before,
+        .pax-viewfinder::after {
             content: '';
             position: absolute;
             width: 20px;
             height: 20px;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
-        .pax-viewfinder::before { top: 0; left: 0; border-right: none; border-bottom: none; }
-        .pax-viewfinder::after  { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+        .pax-viewfinder::before {
+            top: 0;
+            left: 0;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .pax-viewfinder::after {
+            bottom: 0;
+            right: 0;
+            border-left: none;
+            border-top: none;
+        }
+
         .pax-vf-tl {
-            position: absolute; top: 0; right: 0;
-            width: 20px; height: 20px;
-            border-top: 1px solid rgba(255,255,255,0.3);
-            border-right: 1px solid rgba(255,255,255,0.3);
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
         }
+
         .pax-vf-bl {
-            position: absolute; bottom: 0; left: 0;
-            width: 20px; height: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            border-left: 1px solid rgba(255,255,255,0.3);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
         }
+
         .pax-active-title {
             font-family: 'Inter', sans-serif;
             font-size: 16px;
@@ -2424,16 +2542,22 @@
             transform: translateY(10px);
             transition: opacity 0.4s ease, transform 0.4s ease;
         }
-        .pax-active-title.show { opacity: 1; transform: translateY(0); }
+
+        .pax-active-title.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .pax-active-director {
             font-family: var(--font-mono);
             font-size: 9px;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255, 255, 255, 0.6);
             margin-top: 6px;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             text-align: center;
         }
+
         .pax-control-desk {
             position: absolute;
             bottom: 0;
@@ -2446,18 +2570,20 @@
             gap: 8px;
             width: 100%;
         }
+
         .pax-roster-toggle {
             display: flex;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 99px;
             padding: 4px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
         }
+
         .pax-toggle-btn {
             background: transparent;
             border: none;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255, 255, 255, 0.6);
             padding: 6px 16px;
             font-family: var(--font-mono);
             font-size: 9px;
@@ -2467,37 +2593,44 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
+
         .pax-toggle-btn.active {
             background: var(--white);
             color: var(--black);
-            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
+
         .pax-toggle-divider {
             width: 1px;
             height: 14px;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
             margin: 0 4px;
             align-self: center;
         }
+
         .pax-toggle-view-all {
             color: var(--accent) !important;
-            border: 1px solid rgba(255,51,0,0.35);
+            border: 1px solid rgba(255, 51, 0, 0.35);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
         }
+
         .pax-toggle-view-all:hover {
             background: var(--accent) !important;
             color: #000 !important;
             border-color: var(--accent);
         }
+
         .pax-toggle-view-all:hover svg {
             transform: translateX(3px);
         }
+
         .pax-carousel-wrapper {
             width: 100%;
             position: relative;
         }
+
         .pax-track {
             display: flex;
             gap: 12px;
@@ -2510,7 +2643,10 @@
             padding: 0 15% 8px;
             -webkit-overflow-scrolling: touch;
         }
-        .pax-track::-webkit-scrollbar { display: none; }
+
+        .pax-track::-webkit-scrollbar {
+            display: none;
+        }
 
         /* --- PAX: 모든 작품 보러가기 버튼 --- */
         .pax-view-all-wrap {
@@ -2518,6 +2654,7 @@
             justify-content: center;
             padding: 4px 0 0;
         }
+
         .pax-view-all-btn {
             display: inline-flex;
             align-items: center;
@@ -2539,6 +2676,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .pax-view-all-btn::before {
             content: '';
             position: absolute;
@@ -2549,26 +2687,32 @@
             transition: transform 0.35s ease;
             z-index: 0;
         }
+
         .pax-view-all-btn:hover::before {
             transform: scaleX(1);
         }
+
         .pax-view-all-btn span,
         .pax-view-all-btn svg {
             position: relative;
             z-index: 1;
         }
+
         .pax-view-all-btn:hover {
             color: #000;
             border-color: var(--accent);
         }
+
         .pax-view-all-btn svg {
             width: 12px;
             height: 12px;
             transition: transform 0.35s ease;
         }
+
         .pax-view-all-btn:hover svg {
             transform: translateX(4px);
         }
+
         .pax-thumb-item {
             flex: 0 0 auto;
             scroll-snap-align: center;
@@ -2576,6 +2720,7 @@
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
         }
+
         .pax-thumb-image-wrapper {
             height: 16vh;
             aspect-ratio: 16/9;
@@ -2586,18 +2731,27 @@
             transition: border-color 0.3s ease, filter 0.3s ease;
             filter: grayscale(80%) contrast(1.2) brightness(0.55);
         }
+
         .pax-thumb-image-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .pax-thumb-item:hover { transform: translateY(-4px); }
+
+        .pax-thumb-item:hover {
+            transform: translateY(-4px);
+        }
+
         .pax-thumb-item:hover .pax-thumb-image-wrapper {
-            border-color: rgba(255,255,255,0.35);
+            border-color: rgba(255, 255, 255, 0.35);
             filter: grayscale(0%) contrast(1) brightness(1);
         }
-        .pax-thumb-item:hover .pax-thumb-image-wrapper img { transform: scale(1.05); }
+
+        .pax-thumb-item:hover .pax-thumb-image-wrapper img {
+            transform: scale(1.05);
+        }
+
         .pax-metadata-panel {
             position: absolute;
             bottom: calc(100% + 10px);
@@ -2610,24 +2764,30 @@
             display: grid;
             grid-template-columns: auto 1fr;
             gap: 4px 12px;
-            background: rgba(0,0,0,0.88);
+            background: rgba(0, 0, 0, 0.88);
             padding: 8px 10px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(6px);
         }
-        .pax-thumb-item:hover .pax-metadata-panel { opacity: 1; transform: translateY(0); }
+
+        .pax-thumb-item:hover .pax-metadata-panel {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .pax-meta-lbl {
             font-family: var(--font-mono);
             font-size: 8px;
-            color: rgba(255,255,255,0.3);
+            color: rgba(255, 255, 255, 0.3);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             align-self: center;
         }
+
         .pax-meta-val {
             font-family: var(--font-mono);
             font-size: 9px;
-            color: rgba(255,255,255,0.85);
+            color: rgba(255, 255, 255, 0.85);
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -2636,22 +2796,81 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
         @media (max-width: 768px) {
             .pax-header {
                 grid-template-columns: 1fr 1fr;
                 gap: 12px;
                 padding: 16px;
+                padding-top: 60px;
             }
-            .pax-nav-links { display: none; }
-            .pax-system-status { grid-column: span 2; justify-self: center; }
-            .pax-control-desk { padding: 0 0 3vh 0; gap: 12px; }
-            .pax-toggle-btn { padding: 8px 14px; font-size: 9px; }
-            .pax-track { padding-left: 5%; padding-right: 5%; }
-            .pax-thumb-image-wrapper { height: 22vh; }
-            .pax-active-title { font-size: 20px; }
+
+            .pax-nav-links {
+                display: none;
+            }
+
+            .pax-system-status {
+                grid-column: span 2;
+                justify-self: center;
+            }
+
+            .pax-control-desk {
+                padding: 0 0 3vh 0;
+                gap: 12px;
+            }
+
+            .pax-toggle-btn {
+                padding: 8px 14px;
+                font-size: 9px;
+            }
+
+            .pax-track {
+                padding-left: 5%;
+                padding-right: 5%;
+                gap: 16px;
+            }
+
+            .pax-thumb-item {
+                width: 70vw;
+            }
+
+            .pax-thumb-image-wrapper {
+                height: auto;
+                aspect-ratio: 16/9;
+            }
+
+            .pax-active-title {
+                font-size: 20px;
+            }
+
+            .pax-metadata-panel {
+                position: static;
+                opacity: 1;
+                transform: none;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                background: transparent;
+                border: none;
+                padding: 10px 4px 4px 4px;
+            }
+
+            .pax-meta-lbl {
+                display: none;
+            }
+
+            .pax-meta-val {
+                text-align: left;
+                font-size: 9px;
+                color: rgba(255, 255, 255, 0.7);
+                white-space: normal;
+            }
         }
-        @media (hover: none) {
-            .pax-metadata-panel { display: none; }
+
+        @media (hover: none) and (min-width: 769px) {
+            .pax-metadata-panel {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -2665,7 +2884,7 @@
         <ul class="site-nav-links">
             <li><a href="#pax-section">PROJECT</a></li>
             <li><a href="#rb-wrapper-main">ABOUT</a></li>
-            <li><a href="./contact.html">CONTACT</a></li>
+            <li><a href="#rb-section-booking">CONTACT</a></li>
         </ul>
     </nav>
 
@@ -2760,9 +2979,11 @@
     <!-- PAX: 프로젝트 아카이브 시네마틱 섹션 -->
     <section class="pax-section" id="pax-section">
         <div class="pax-bg-stack">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2864&auto=format&fit=crop" class="pax-bg-plate active" data-id="pax-item-0" alt="">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2864&auto=format&fit=crop"
+                class="pax-bg-plate active" data-id="pax-item-0" alt="">
             <img src="./프로젝트 아카이브/QtoPET/QTOPET STILL1.png" class="pax-bg-plate" data-id="pax-item-1" alt="QtoPET">
-            <img src="./프로젝트 아카이브/Ride or Die - 유명한 아이/Ride or Die Still1.jpg" class="pax-bg-plate" data-id="pax-item-2" alt="Ride or Die">
+            <img src="./프로젝트 아카이브/Ride or Die - 유명한 아이/Ride or Die Still1.jpg" class="pax-bg-plate" data-id="pax-item-2"
+                alt="Ride or Die">
             <img src="./프로젝트 아카이브/듀오덤/유오덤 still1.png" class="pax-bg-plate" data-id="pax-item-3" alt="듀오덤">
             <img src="./프로젝트 아카이브/트렌드지 - 위로위로/위로위로스틸1.png" class="pax-bg-plate" data-id="pax-item-4" alt="트렌드지 - 위로위로">
             <div class="pax-grid-overlay"></div>
@@ -2793,43 +3014,52 @@
                 <div class="pax-carousel-wrapper">
                     <div class="pax-track" id="pax-project-track">
 
-                        <div class="pax-thumb-item" data-target="pax-item-1" data-title="QTOPET" data-dir="BRAND FILM // FULL PROD.">
-                            <div class="pax-thumb-image-wrapper"><img src="./프로젝트 아카이브/QtoPET/QTOPET STILL1.png" alt="QtoPET"></div>
+                        <div class="pax-thumb-item" data-target="pax-item-1" data-title="QTOPET"
+                            data-dir="BRAND FILM // FULL PROD.">
+                            <div class="pax-thumb-image-wrapper"><img src="./프로젝트 아카이브/QtoPET/QTOPET STILL1.png"
+                                    alt="QtoPET"></div>
                             <div class="pax-metadata-panel">
                                 <span class="pax-meta-lbl">Client</span> <span class="pax-meta-val">QtoPET</span>
-                                <span class="pax-meta-lbl">Type</span>   <span class="pax-meta-val">BRAND FILM</span>
-                                <span class="pax-meta-lbl">Role</span>   <span class="pax-meta-val">FULL PROD.</span>
-                                <span class="pax-meta-lbl">Year</span>   <span class="pax-meta-val">2024</span>
+                                <span class="pax-meta-lbl">Type</span> <span class="pax-meta-val">BRAND FILM</span>
+                                <span class="pax-meta-lbl">Role</span> <span class="pax-meta-val">FULL PROD.</span>
+                                <span class="pax-meta-lbl">Year</span> <span class="pax-meta-val">2024</span>
                             </div>
                         </div>
 
-                        <div class="pax-thumb-item" data-target="pax-item-2" data-title="RIDE OR DIE" data-dir="유명한아이 feat. HASH SWAN">
-                            <div class="pax-thumb-image-wrapper"><img src="./프로젝트 아카이브/Ride or Die - 유명한 아이/Ride or Die Still1.jpg" alt="Ride or Die"></div>
+                        <div class="pax-thumb-item" data-target="pax-item-2" data-title="RIDE OR DIE"
+                            data-dir="유명한아이 feat. HASH SWAN">
+                            <div class="pax-thumb-image-wrapper"><img
+                                    src="./프로젝트 아카이브/Ride or Die - 유명한 아이/Ride or Die Still1.jpg" alt="Ride or Die">
+                            </div>
                             <div class="pax-metadata-panel">
                                 <span class="pax-meta-lbl">Artist</span> <span class="pax-meta-val">유명한아이</span>
-                                <span class="pax-meta-lbl">Type</span>   <span class="pax-meta-val">MUSIC VIDEO</span>
-                                <span class="pax-meta-lbl">Role</span>   <span class="pax-meta-val">FULL PROD.</span>
-                                <span class="pax-meta-lbl">Year</span>   <span class="pax-meta-val">2025</span>
+                                <span class="pax-meta-lbl">Type</span> <span class="pax-meta-val">MUSIC VIDEO</span>
+                                <span class="pax-meta-lbl">Role</span> <span class="pax-meta-val">FULL PROD.</span>
+                                <span class="pax-meta-lbl">Year</span> <span class="pax-meta-val">2025</span>
                             </div>
                         </div>
 
-                        <div class="pax-thumb-item" data-target="pax-item-3" data-title="듀오덤" data-dir="COMMERCIAL // CAMERA">
-                            <div class="pax-thumb-image-wrapper"><img src="./프로젝트 아카이브/듀오덤/유오덤 still1.png" alt="듀오덤"></div>
+                        <div class="pax-thumb-item" data-target="pax-item-3" data-title="듀오덤"
+                            data-dir="COMMERCIAL // CAMERA">
+                            <div class="pax-thumb-image-wrapper"><img src="./프로젝트 아카이브/듀오덤/유오덤 still1.png" alt="듀오덤">
+                            </div>
                             <div class="pax-metadata-panel">
                                 <span class="pax-meta-lbl">Client</span> <span class="pax-meta-val">듀오덤</span>
-                                <span class="pax-meta-lbl">Type</span>   <span class="pax-meta-val">COMMERCIAL</span>
-                                <span class="pax-meta-lbl">Role</span>   <span class="pax-meta-val">CAMERA</span>
-                                <span class="pax-meta-lbl">Year</span>   <span class="pax-meta-val">2023/08</span>
+                                <span class="pax-meta-lbl">Type</span> <span class="pax-meta-val">COMMERCIAL</span>
+                                <span class="pax-meta-lbl">Role</span> <span class="pax-meta-val">CAMERA</span>
+                                <span class="pax-meta-lbl">Year</span> <span class="pax-meta-val">2023/08</span>
                             </div>
                         </div>
 
-                        <div class="pax-thumb-item" data-target="pax-item-4" data-title="위로위로" data-dir="트렌드지 // MUSIC VIDEO">
-                            <div class="pax-thumb-image-wrapper"><img src="./프로젝트 아카이브/트렌드지 - 위로위로/위로위로스틸1.png" alt="트렌드지 - 위로위로"></div>
+                        <div class="pax-thumb-item" data-target="pax-item-4" data-title="위로위로"
+                            data-dir="트렌드지 // MUSIC VIDEO">
+                            <div class="pax-thumb-image-wrapper"><img src="./프로젝트 아카이브/트렌드지 - 위로위로/위로위로스틸1.png"
+                                    alt="트렌드지 - 위로위로"></div>
                             <div class="pax-metadata-panel">
                                 <span class="pax-meta-lbl">Artist</span> <span class="pax-meta-val">트렌드지</span>
-                                <span class="pax-meta-lbl">Type</span>   <span class="pax-meta-val">MUSIC VIDEO</span>
-                                <span class="pax-meta-lbl">Role</span>   <span class="pax-meta-val">촬영 / 조명</span>
-                                <span class="pax-meta-lbl">Year</span>   <span class="pax-meta-val">2025</span>
+                                <span class="pax-meta-lbl">Type</span> <span class="pax-meta-val">MUSIC VIDEO</span>
+                                <span class="pax-meta-lbl">Role</span> <span class="pax-meta-val">촬영 / 조명</span>
+                                <span class="pax-meta-lbl">Year</span> <span class="pax-meta-val">2025</span>
                             </div>
                         </div>
 
@@ -2867,7 +3097,8 @@
                         <!-- 01 JUNG DA-BIN | 홀수 → 이미지 좌 -->
                         <div class="crew-roster-item">
                             <div class="crew-roster-img">
-                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1600&auto=format&fit=crop" alt="JUNG DA-BIN">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1600&auto=format&fit=crop"
+                                    alt="JUNG DA-BIN">
                                 <div class="crew-img-meta">CAM A / ARRI ALEXA 35 / 35MM ANAMORPHIC</div>
                             </div>
                             <div class="crew-roster-info">
@@ -2884,7 +3115,8 @@
                         <!-- 02 KIM HYUNG-MIN | 짝수 → 이미지 우 -->
                         <div class="crew-roster-item">
                             <div class="crew-roster-img">
-                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1600&auto=format&fit=crop" alt="KIM HYUNG-MIN" style="object-position: top;">
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1600&auto=format&fit=crop"
+                                    alt="KIM HYUNG-MIN" style="object-position: top;">
                                 <div class="crew-img-meta">LGT GRID / LARGE-SCALE LIGHTING / DMX 512</div>
                             </div>
                             <div class="crew-roster-info">
@@ -2901,7 +3133,8 @@
                         <!-- 03 SHIN HYUNG-JUNE | 홀수 → 이미지 좌 -->
                         <div class="crew-roster-item">
                             <div class="crew-roster-img">
-                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1600&auto=format&fit=crop" alt="SHIN HYUNG-JUNE">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1600&auto=format&fit=crop"
+                                    alt="SHIN HYUNG-JUNE">
                                 <div class="crew-img-meta">CAM B / FX3 / MULTI-PLATFORM UNIT</div>
                             </div>
                             <div class="crew-roster-info">
@@ -2918,7 +3151,8 @@
                         <!-- 04 LIM JIN-WOO | 짝수 → 이미지 우 -->
                         <div class="crew-roster-item">
                             <div class="crew-roster-img">
-                                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1600&auto=format&fit=crop" alt="LIM JIN-WOO">
+                                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1600&auto=format&fit=crop"
+                                    alt="LIM JIN-WOO">
                                 <div class="crew-img-meta">PROD. UNIT / FLEX BUDGET / COORDINATOR</div>
                             </div>
                             <div class="crew-roster-info">
@@ -3442,10 +3676,10 @@
 
         // === PAX: 프로젝트 아카이브 시네마틱 섹션 스크립트 ===
         (function () {
-            const paxThumbs    = document.querySelectorAll('.pax-thumb-item');
-            const paxBgPlates  = document.querySelectorAll('.pax-bg-plate');
-            const paxTitle     = document.getElementById('pax-stage-title');
-            const paxDir       = document.getElementById('pax-stage-dir');
+            const paxThumbs = document.querySelectorAll('.pax-thumb-item');
+            const paxBgPlates = document.querySelectorAll('.pax-bg-plate');
+            const paxTitle = document.getElementById('pax-stage-title');
+            const paxDir = document.getElementById('pax-stage-dir');
             let paxHoverTimer;
 
             function paxSetDefault() {
@@ -3454,33 +3688,49 @@
                 if (def) def.classList.add('active');
                 paxTitle.classList.remove('show');
                 setTimeout(() => {
-                    paxTitle.textContent = 'SELECT PROJECT';
-                    paxDir.textContent   = 'SYSTEM STANDBY';
+                    paxDir.textContent = 'SYSTEM STANDBY';
+                    paxTitle.classList.add('show');
+                }, 200);
+            }
+
+            function handlePaxFocus(element) {
+                const targetId = element.dataset.target;
+                const newTitle = element.dataset.title;
+                const newDir = element.dataset.dir;
+
+                paxBgPlates.forEach(p => {
+                    p.classList.toggle('active', p.getAttribute('data-id') === targetId);
+                });
+
+                paxTitle.classList.remove('show');
+                setTimeout(() => {
+                    paxTitle.textContent = newTitle;
+                    paxDir.textContent = newDir;
                     paxTitle.classList.add('show');
                 }, 200);
             }
 
             paxThumbs.forEach(thumb => {
                 thumb.addEventListener('mouseenter', function () {
+                    if (isTouchDevice) return;
                     clearTimeout(paxHoverTimer);
-                    const targetId = this.dataset.target;
-                    const newTitle = this.dataset.title;
-                    const newDir   = this.dataset.dir;
-
-                    paxBgPlates.forEach(p => {
-                        p.classList.toggle('active', p.getAttribute('data-id') === targetId);
-                    });
-
-                    paxTitle.classList.remove('show');
-                    setTimeout(() => {
-                        paxTitle.textContent = newTitle;
-                        paxDir.textContent   = newDir;
-                        paxTitle.classList.add('show');
-                    }, 200);
+                    handlePaxFocus(this);
                 });
 
                 thumb.addEventListener('mouseleave', function () {
+                    if (isTouchDevice) return;
                     paxHoverTimer = setTimeout(paxSetDefault, 500);
+                });
+
+                thumb.addEventListener('click', function (e) {
+                    if (isTouchDevice) {
+                        e.preventDefault();
+                        clearTimeout(paxHoverTimer);
+                        handlePaxFocus(this);
+
+                        // Center scroll on clicked item horizontally in mobile
+                        this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    }
                 });
             });
 
@@ -3511,8 +3761,8 @@
                     if (entries[0].isIntersecting) {
                         setTimeout(() => {
                             paxTrack.style.transition = 'opacity 1s ease, transform 1s ease';
-                            paxTrack.style.opacity    = '1';
-                            paxTrack.style.transform  = 'translateY(0)';
+                            paxTrack.style.opacity = '1';
+                            paxTrack.style.transform = 'translateY(0)';
                             setTimeout(() => paxTitle.classList.add('show'), 600);
                         }, 300);
                         obs.disconnect();

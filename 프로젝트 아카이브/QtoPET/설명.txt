@@ -1,0 +1,4 @@
+﻿이름: QtoPET
+타입: COMMERCIAL
+date: 2024
+role: full prod.

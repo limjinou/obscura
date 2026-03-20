@@ -30,7 +30,21 @@
       "Bash(powershell -Command \"[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Get-ChildItem -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\프로젝트 아카이브'' -Directory | Select-Object -ExpandProperty Name | Out-File -FilePath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\folderlist.txt'' -Encoding UTF8\")",
       "Bash(Out-String)",
       "Bash(Write-Output)",
-      "Bash(del \"C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\folderlist.txt\")"
+      "Bash(del \"C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\folderlist.txt\")",
+      "Bash(powershell -Command \"Get-ChildItem -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\크루 인덱스'' -Directory | Select-Object -ExpandProperty Name | Out-File -FilePath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\_tmp_crew.txt'' -Encoding UTF8\")",
+      "Bash(powershell -Command \"Get-ChildItem -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\크루 인덱스\\\\임진우'' | Select-Object -ExpandProperty Name | Out-File -FilePath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\_tmp_crew_lim.txt'' -Encoding UTF8\")",
+      "Bash(powershell -Command \"Get-Content -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\크루 인덱스\\\\임진우\\\\임진우.txt'' -Encoding UTF8 | Out-File -FilePath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\_tmp_lim_info.txt'' -Encoding UTF8\")",
+      "Bash(powershell -Command \"Get-ChildItem -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\크루 인덱스\\\\정다빈'' | Select-Object -ExpandProperty Name | Out-File -FilePath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\_tmp_crew_jdb.txt'' -Encoding UTF8\")",
+      "Bash(powershell -Command \"Get-Content -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\크루 인덱스\\\\정다빈\\\\정보.txt'' -Encoding UTF8 | Out-File -FilePath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\_tmp_jdb_info.txt'' -Encoding UTF8\")",
+      "Bash(powershell -Command \"Get-Content -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\프로젝트 아카이브\\\\QtoPET\\\\설명.txt'' -Encoding UTF8 | Out-File -FilePath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\_tmp_qtopet.txt'' -Encoding UTF8\")",
+      "Bash(powershell -Command \"Set-Content -LiteralPath ''C:\\\\Users\\\\임진우\\\\OneDrive\\\\Desktop\\\\obscura\\\\프로젝트 아카이브\\\\QtoPET\\\\설명.txt'' -Value @'':*)",
+      "WebFetch(domain:commons.wikimedia.org)",
+      "WebFetch(domain:upload.wikimedia.org)",
+      "WebFetch(domain:simpleicons.org)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "WebFetch(domain:en.m.wikipedia.org)",
+      "WebFetch(domain:api.wikimedia.org)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{url_effective}\\\\n\" \"https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg\" \"https://upload.wikimedia.org/wikipedia/commons/0/0c/Blender_logo_no_text.svg\" \"https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg\" \"https://upload.wikimedia.org/wikipedia/commons/9/9e/Google_Gemini_icon_2025.svg\" \"https://upload.wikimedia.org/wikipedia/commons/1/1d/Google_Gemini_icon_2025.svg\" \"https://upload.wikimedia.org/wikipedia/commons/8/8a/Google-gemini-icon.svg\" \"https://upload.wikimedia.org/wikipedia/commons/8/8f/Google-gemini-icon.svg\" -A \"Mozilla/5.0 \\(compatible; curl\\)\")"
     ]
   }
 }

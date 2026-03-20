@@ -1,0 +1,4 @@
+제목: SMTECH
+타입: TVCF
+date: 2025/08
+role: full prod.

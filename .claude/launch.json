@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Python Static Server",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8080", "--bind", "127.0.0.1", "--directory", "C:/Users/임진우/OneDrive/Desktop/obscura"],
+      "port": 8080,
+      "autoPort": true
+    }
+  ]
+}

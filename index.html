@@ -94,6 +94,87 @@
             font-family: 'GmarketSansLight', sans-serif;
         }
 
+        /* ── Global Top Navigation ── */
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 2.5rem;
+            background: transparent;
+            border-bottom: 1px solid transparent;
+        }
+
+        .site-nav-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-decoration: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .site-nav-divider {
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.12);
+            margin: 0 2rem;
+            min-width: 32px;
+        }
+
+        .site-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            list-style: none;
+            flex-shrink: 0;
+        }
+
+        .site-nav-links li {
+            display: flex;
+            align-items: center;
+        }
+
+        .site-nav-links li + li::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.12);
+            margin: 0 1.5rem;
+        }
+
+        .site-nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.25s ease;
+            white-space: nowrap;
+        }
+
+        .site-nav-links a:hover,
+        .site-nav-links a.active {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .site-nav { padding: 0 1.25rem; }
+            .site-nav-divider { margin: 0 1rem; min-width: 16px; }
+            .site-nav-links li + li::before { width: 20px; margin: 0 0.75rem; }
+            .site-nav-links a { font-size: 0.55rem; letter-spacing: 0.14em; }
+        }
+
         .viewport {
             position: relative;
             width: 100%;
@@ -380,9 +461,9 @@
         }
 
         .hero h1 {
-            font-size: clamp(3.5rem, 18vw, 24rem);
+            font-size: clamp(2.5rem, 11vw, 13rem);
             /* 폴백: min() 미지원 브라우저용 */
-            font-size: clamp(3.5rem, min(18vw, 22vh), 24rem);
+            font-size: clamp(2.5rem, min(11vw, 15vh), 13rem);
             color: var(--accent);
             flex-shrink: 1;
             margin-bottom: 0;
@@ -399,10 +480,10 @@
             max-width: 800px;
             font-size: clamp(0.75rem, 1.3vh, 1rem);
             line-height: 1.5;
-            /* 폴백: clamp 미지원 브라우저용 */
             line-height: clamp(1.3em, calc(0.2vh + 1em), 1.6em);
             text-align: center;
             word-spacing: 0.2em;
+            letter-spacing: 0.08em;
             flex-shrink: 1;
         }
 
@@ -1454,96 +1535,96 @@
             margin: 0;
         }
 
-        .rb-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-        }
-
-        .rb-card {
-            position: relative;
-            aspect-ratio: 3 / 4;
-            background-color: var(--rb-bg-card);
-            border: 1px solid var(--rb-border-dark);
-            overflow: hidden;
-            cursor: pointer;
-            transition: border-color 0.3s ease;
-        }
-
-        .rb-card:hover {
-            border-color: var(--rb-accent-red);
-        }
-
-        .rb-card::before {
-            content: '';
-            position: absolute;
-            left: 4px;
-            top: 4px;
-            bottom: 4px;
-            width: 4px;
-            background-image: radial-gradient(circle at center, var(--rb-text-tertiary) 1px, transparent 1px);
-            background-size: 100% 12px;
-            z-index: 10;
-            opacity: 0.3;
-        }
-
-        .rb-card-image {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            filter: grayscale(100%) contrast(1.2) brightness(0.8);
-            transition: filter 0.5s ease, transform 5s ease;
-        }
-
-        .rb-card:hover .rb-card-image {
-            filter: grayscale(80%) contrast(1.1) brightness(0.9);
-            transform: scale(1.03);
-        }
-
-        .rb-card-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 40%, transparent 100%);
+        /* ── Crew Roster: Cinematic Alternating Layout ── */
+        .crew-roster {
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            padding: var(--rb-spacing-lg) var(--rb-spacing-md) var(--rb-spacing-md) 16px;
+            gap: 5rem;
+        }
+
+        /* Flexbox 행 레이아웃 — 텍스트 높이가 row 높이를 결정 */
+        .crew-roster-item {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+        }
+
+        /* 홀수: 이미지 좌, 텍스트 우 */
+        .crew-roster-item:nth-child(odd)  { flex-direction: row; }
+        /* 짝수: 이미지 우, 텍스트 좌 */
+        .crew-roster-item:nth-child(even) { flex-direction: row-reverse; }
+
+        .crew-roster-item:nth-child(even) .crew-roster-info { text-align: right; }
+
+        .crew-roster-info { flex: 1; }
+
+        /* 이미지 컨테이너: 고정 height 기준 9:16 portrait */
+        .crew-roster-img {
+            position: relative;
+            flex-shrink: 0;
+            height: 320px;
+            width: calc(320px * 9 / 16);
+            overflow: hidden;
+        }
+
+        .crew-roster-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+        }
+
+        .crew-img-meta {
+            position: absolute;
+            bottom: 0.75rem;
+            left: 0.75rem;
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
             z-index: 2;
         }
 
-        .rb-card-name {
-            font-family: var(--rb-font-display);
-            font-size: 1.5rem;
-            font-weight: 400;
-            letter-spacing: 0.05em;
-            line-height: 1.2;
-            margin-bottom: var(--rb-spacing-md);
-            text-transform: uppercase;
-            color: var(--rb-text-primary);
-        }
-
-        .rb-card-details {
-            font-size: 0.65rem;
-            letter-spacing: 0.15em;
-            color: var(--rb-text-secondary);
+        .crew-roster-info {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 1rem;
         }
 
-        .rb-card-row {
+        .crew-roster-role {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--accent);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .crew-roster-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2.2rem, 3.5vw, 4.5rem);
+            line-height: 0.88;
+            color: var(--white);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .crew-roster-specs {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            color: rgba(244, 244, 245, 0.3);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
         }
 
-        .rb-card-credits {
-            margin-top: 12px;
-            color: var(--rb-text-tertiary);
-            font-size: 0.55rem;
-            line-height: 1.4;
-            word-break: keep-all;
+        .crew-roster-specs span {
+            border-top: 1px solid rgba(244, 244, 245, 0.07);
+            padding: 5px 0;
         }
 
         .rb-workflow-view {
@@ -1861,9 +1942,9 @@
         }
 
         @media (max-width: 1200px) {
-            .rb-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .crew-roster-item:nth-child(n) .crew-roster-img  { grid-column: 1 / -1; grid-row: 1; }
+            .crew-roster-item:nth-child(n) .crew-roster-info { grid-column: 1 / -1; grid-row: 2; text-align: left; }
+            .crew-roster-name { font-size: 2.8rem; }
 
             .rb-section-title {
                 font-size: 2.5rem;
@@ -1916,9 +1997,8 @@
         }
 
         @media (max-width: 600px) {
-            .rb-grid {
-                grid-template-columns: 1fr;
-            }
+            .crew-roster { gap: 3rem; }
+            .crew-roster-name { font-size: 2.2rem; }
 
             .rb-header {
                 display: flex;
@@ -2174,10 +2254,420 @@
                 height: 4px;
             }
         }
+
+        /* =============================================
+           PAX: 프로젝트 아카이브 시네마틱 섹션
+           ============================================= */
+        .pax-section {
+            position: relative;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            background: #030303;
+            border-top: 1px solid var(--grid-line);
+        }
+        .pax-bg-stack {
+            position: absolute;
+            inset: 0;
+            background: #030303;
+            z-index: 0;
+        }
+        .pax-bg-plate {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 6s linear;
+            transform: scale(1.05);
+        }
+        .pax-bg-plate.active {
+            opacity: 0.55;
+            transform: scale(1);
+        }
+        .pax-vignette {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background:
+                radial-gradient(circle at center, transparent 30%, #000 120%),
+                linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 18%, transparent 65%, rgba(0,0,0,0.95) 100%);
+            pointer-events: none;
+        }
+        .pax-grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 25% 25%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .pax-ui-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+        }
+        .pax-header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            padding: 24px 32px;
+            align-items: start;
+        }
+        .pax-brand-cluster {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .pax-brand-name {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+        .pax-brand-sub {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .pax-system-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 6px 12px;
+            border-radius: 2px;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
+        }
+        .pax-sys-label { color: rgba(255,255,255,0.3); margin-right: 4px; }
+        .pax-rec-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: recBlink 1s infinite;
+        }
+        .pax-nav-links {
+            justify-self: end;
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        .pax-nav-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        .pax-nav-links a:hover { color: #fff; }
+        .pax-center-stage {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        .pax-viewfinder {
+            position: relative;
+            padding: 20px 48px;
+        }
+        .pax-viewfinder::before, .pax-viewfinder::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .pax-viewfinder::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+        .pax-viewfinder::after  { bottom: 0; right: 0; border-left: none; border-top: none; }
+        .pax-vf-tl {
+            position: absolute; top: 0; right: 0;
+            width: 20px; height: 20px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            border-right: 1px solid rgba(255,255,255,0.3);
+        }
+        .pax-vf-bl {
+            position: absolute; bottom: 0; left: 0;
+            width: 20px; height: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            border-left: 1px solid rgba(255,255,255,0.3);
+        }
+        .pax-active-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-align: center;
+            color: var(--white);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .pax-active-title.show { opacity: 1; transform: translateY(0); }
+        .pax-active-director {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 6px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-align: center;
+        }
+        .pax-control-desk {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0 0 3vh 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+        .pax-roster-toggle {
+            display: flex;
+            background: rgba(255,255,255,0.05);
+            border-radius: 99px;
+            padding: 4px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+        .pax-toggle-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.6);
+            padding: 6px 16px;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 99px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .pax-toggle-btn.active {
+            background: var(--white);
+            color: var(--black);
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+        .pax-toggle-divider {
+            width: 1px;
+            height: 14px;
+            background: rgba(255,255,255,0.15);
+            margin: 0 4px;
+            align-self: center;
+        }
+        .pax-toggle-view-all {
+            color: var(--accent) !important;
+            border: 1px solid rgba(255,51,0,0.35);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .pax-toggle-view-all:hover {
+            background: var(--accent) !important;
+            color: #000 !important;
+            border-color: var(--accent);
+        }
+        .pax-toggle-view-all:hover svg {
+            transform: translateX(3px);
+        }
+        .pax-carousel-wrapper {
+            width: 100%;
+            position: relative;
+        }
+        .pax-track {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+            padding: 0 15% 8px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .pax-track::-webkit-scrollbar { display: none; }
+
+        /* --- PAX: 모든 작품 보러가기 버튼 --- */
+        .pax-view-all-wrap {
+            display: flex;
+            justify-content: center;
+            padding: 4px 0 0;
+        }
+        .pax-view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: transparent;
+            border: 1px solid rgba(255, 51, 0, 0.45);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 9px 22px;
+            border-radius: 99px;
+            cursor: pointer;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 51, 0, 0.05);
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .pax-view-all-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s ease;
+            z-index: 0;
+        }
+        .pax-view-all-btn:hover::before {
+            transform: scaleX(1);
+        }
+        .pax-view-all-btn span,
+        .pax-view-all-btn svg {
+            position: relative;
+            z-index: 1;
+        }
+        .pax-view-all-btn:hover {
+            color: #000;
+            border-color: var(--accent);
+        }
+        .pax-view-all-btn svg {
+            width: 12px;
+            height: 12px;
+            transition: transform 0.35s ease;
+        }
+        .pax-view-all-btn:hover svg {
+            transform: translateX(4px);
+        }
+        .pax-thumb-item {
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        .pax-thumb-image-wrapper {
+            height: 16vh;
+            aspect-ratio: 16/9;
+            width: auto;
+            background: #111;
+            overflow: hidden;
+            border: 1px solid transparent;
+            transition: border-color 0.3s ease, filter 0.3s ease;
+            filter: grayscale(80%) contrast(1.2) brightness(0.55);
+        }
+        .pax-thumb-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .pax-thumb-item:hover { transform: translateY(-4px); }
+        .pax-thumb-item:hover .pax-thumb-image-wrapper {
+            border-color: rgba(255,255,255,0.35);
+            filter: grayscale(0%) contrast(1) brightness(1);
+        }
+        .pax-thumb-item:hover .pax-thumb-image-wrapper img { transform: scale(1.05); }
+        .pax-metadata-panel {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 4px 12px;
+            background: rgba(0,0,0,0.88);
+            padding: 8px 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(6px);
+        }
+        .pax-thumb-item:hover .pax-metadata-panel { opacity: 1; transform: translateY(0); }
+        .pax-meta-lbl {
+            font-family: var(--font-mono);
+            font-size: 8px;
+            color: rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            align-self: center;
+        }
+        .pax-meta-val {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: rgba(255,255,255,0.85);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        @media (max-width: 768px) {
+            .pax-header {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                padding: 16px;
+            }
+            .pax-nav-links { display: none; }
+            .pax-system-status { grid-column: span 2; justify-self: center; }
+            .pax-control-desk { padding: 0 0 3vh 0; gap: 12px; }
+            .pax-toggle-btn { padding: 8px 14px; font-size: 9px; }
+            .pax-track { padding-left: 5%; padding-right: 5%; }
+            .pax-thumb-image-wrapper { height: 22vh; }
+            .pax-active-title { font-size: 20px; }
+        }
+        @media (hover: none) {
+            .pax-metadata-panel { display: none; }
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- ── Global Top Navigation ── -->
+    <nav class="site-nav">
+        <a href="#" class="site-nav-logo">OBSCURA</a>
+        <div class="site-nav-divider"></div>
+        <ul class="site-nav-links">
+            <li><a href="#pax-section">PROJECT</a></li>
+            <li><a href="#rb-wrapper-main">ABOUT</a></li>
+            <li><a href="./contact.html">CONTACT</a></li>
+        </ul>
+    </nav>
 
     <div class="viewport">
 
@@ -2267,100 +2757,89 @@
         </div>
     </section>
 
-    <!-- 신규 섹션: 프로젝트 아카이브 인덱스 -->
-    <section class="project-index">
-        <header class="project-index-header">
-            <h2>OBSCURA</h2>
-            <div class="archive-subline">PROJECT ARCHIVE</div>
-        </header>
-
-        <div class="table-scroll">
-            <table class="project-table">
-                <thead>
-                    <tr>
-                        <th width="35%">PROJECT</th>
-                        <th width="15%">TYPE</th>
-                        <th width="15%">ROLE</th>
-                        <th width="15%">DATE</th>
-                        <th width="20%">STILL</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="project-title">QtoPET <span class="title-symbol">_</span> Brand Film</div>
-                        </td>
-                        <td><span class="data-cell">COMMERCIAL</span></td>
-                        <td><span class="data-cell">FULL PROD.</span></td>
-                        <td><span class="data-cell">2024</span></td>
-                        <td>
-                            <div class="reel-strip">
-                                <div class="frame-preview"
-                                    style="background-image: url('./프로젝트 아카이브/QtoPET/QTOPET STILL1.png')">
-                                </div>
-                                <div class="frame-preview"
-                                    style="background-image: url('./프로젝트 아카이브/QtoPET/QTOPET STILL2.png')">
-                                </div>
-                                <div class="frame-preview"
-                                    style="background-image: url('./프로젝트 아카이브/QtoPET/QTOPETSTILL3.png')">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="project-title"><span class="ko-text">유명한아이</span><span
-                                    class="title-symbol">_</span>Ride or Die (feat. Hash Swan)</div>
-                        </td>
-                        <td><span class="data-cell">MUSIC VIDEO</span></td>
-                        <td><span class="data-cell">FULL PROD.</span></td>
-                        <td><span class="data-cell">2025</span></td>
-                        <td>
-                            <div class="reel-strip">
-                                <div class="frame-preview"
-                                    style="background-image: url('./프로젝트 아카이브/Ride or Die - 유명한 아이/Ride or Die Still1.jpg')">
-                                </div>
-                                <div class="frame-preview"
-                                    style="background-image: url('./프로젝트 아카이브/Ride or Die - 유명한 아이/Ride or Die Still2.jpg')">
-                                </div>
-                                <div class="frame-preview"
-                                    style="background-image: url('./프로젝트 아카이브/Ride or Die - 유명한 아이/Ride or Die Still3.jpg')">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="project-title"><span class="ko-text">듀오덤</span></div>
-                        </td>
-                        <td><span class="data-cell">COMMERCIAL</span></td>
-                        <td><span class="data-cell">CAMERA</span></td>
-                        <td><span class="data-cell">2023/08</span></td>
-                        <td>
-                            <div class="reel-strip">
-                                <div class="frame-preview"
-                                    style="background-image: url('./프로젝트 아카이브/듀오덤/유오덤 still1.png')">
-                                </div>
-                                <div class="frame-preview"
-                                    style="background-image: url('./프로젝트 아카이브/듀오덤/유오덤 still2.png')">
-                                </div>
-                                <div class="frame-preview"
-                                    style="background-image: url('./프로젝트 아카이브/듀오덤/유오덤 still3.png')">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- PAX: 프로젝트 아카이브 시네마틱 섹션 -->
+    <section class="pax-section" id="pax-section">
+        <div class="pax-bg-stack">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2864&auto=format&fit=crop" class="pax-bg-plate active" data-id="pax-item-0" alt="">
+            <img src="./프로젝트 아카이브/QtoPET/QTOPET STILL1.png" class="pax-bg-plate" data-id="pax-item-1" alt="QtoPET">
+            <img src="./프로젝트 아카이브/Ride or Die - 유명한 아이/Ride or Die Still1.jpg" class="pax-bg-plate" data-id="pax-item-2" alt="Ride or Die">
+            <img src="./프로젝트 아카이브/듀오덤/유오덤 still1.png" class="pax-bg-plate" data-id="pax-item-3" alt="듀오덤">
+            <img src="./프로젝트 아카이브/트렌드지 - 위로위로/위로위로스틸1.png" class="pax-bg-plate" data-id="pax-item-4" alt="트렌드지 - 위로위로">
+            <div class="pax-grid-overlay"></div>
+            <div class="pax-vignette"></div>
         </div>
-        <div class="archive-action">
-            <a href="#" class="view-all-cta">
-                <span class="cta-text">VIEW ALL PROJECTS</span>
-                <span class="cta-line"></span>
-                <span class="cta-text">OBSCURA</span>
-            </a>
+
+        <div class="pax-ui-layer">
+
+            <main class="pax-center-stage">
+                <div class="pax-viewfinder">
+                    <div class="pax-vf-tl"></div>
+                    <div class="pax-vf-bl"></div>
+                    <div class="pax-active-title" id="pax-stage-title">SELECT PROJECT</div>
+                    <div class="pax-active-director" id="pax-stage-dir">SYSTEM STANDBY</div>
+                </div>
+            </main>
+
+            <footer class="pax-control-desk">
+                <div class="pax-roster-toggle">
+                    <button class="pax-toggle-btn active">ALL</button>
+                    <button class="pax-toggle-btn">COMMERCIAL</button>
+                    <button class="pax-toggle-btn">MUSIC VIDEO</button>
+                    <div class="pax-toggle-divider"></div>
+                    <a href="./works.html" class="pax-toggle-btn pax-toggle-view-all">
+                        MORE+
+                    </a>
+                </div>
+                <div class="pax-carousel-wrapper">
+                    <div class="pax-track" id="pax-project-track">
+
+                        <div class="pax-thumb-item" data-target="pax-item-1" data-title="QTOPET" data-dir="BRAND FILM // FULL PROD.">
+                            <div class="pax-thumb-image-wrapper"><img src="./프로젝트 아카이브/QtoPET/QTOPET STILL1.png" alt="QtoPET"></div>
+                            <div class="pax-metadata-panel">
+                                <span class="pax-meta-lbl">Client</span> <span class="pax-meta-val">QtoPET</span>
+                                <span class="pax-meta-lbl">Type</span>   <span class="pax-meta-val">BRAND FILM</span>
+                                <span class="pax-meta-lbl">Role</span>   <span class="pax-meta-val">FULL PROD.</span>
+                                <span class="pax-meta-lbl">Year</span>   <span class="pax-meta-val">2024</span>
+                            </div>
+                        </div>
+
+                        <div class="pax-thumb-item" data-target="pax-item-2" data-title="RIDE OR DIE" data-dir="유명한아이 feat. HASH SWAN">
+                            <div class="pax-thumb-image-wrapper"><img src="./프로젝트 아카이브/Ride or Die - 유명한 아이/Ride or Die Still1.jpg" alt="Ride or Die"></div>
+                            <div class="pax-metadata-panel">
+                                <span class="pax-meta-lbl">Artist</span> <span class="pax-meta-val">유명한아이</span>
+                                <span class="pax-meta-lbl">Type</span>   <span class="pax-meta-val">MUSIC VIDEO</span>
+                                <span class="pax-meta-lbl">Role</span>   <span class="pax-meta-val">FULL PROD.</span>
+                                <span class="pax-meta-lbl">Year</span>   <span class="pax-meta-val">2025</span>
+                            </div>
+                        </div>
+
+                        <div class="pax-thumb-item" data-target="pax-item-3" data-title="듀오덤" data-dir="COMMERCIAL // CAMERA">
+                            <div class="pax-thumb-image-wrapper"><img src="./프로젝트 아카이브/듀오덤/유오덤 still1.png" alt="듀오덤"></div>
+                            <div class="pax-metadata-panel">
+                                <span class="pax-meta-lbl">Client</span> <span class="pax-meta-val">듀오덤</span>
+                                <span class="pax-meta-lbl">Type</span>   <span class="pax-meta-val">COMMERCIAL</span>
+                                <span class="pax-meta-lbl">Role</span>   <span class="pax-meta-val">CAMERA</span>
+                                <span class="pax-meta-lbl">Year</span>   <span class="pax-meta-val">2023/08</span>
+                            </div>
+                        </div>
+
+                        <div class="pax-thumb-item" data-target="pax-item-4" data-title="위로위로" data-dir="트렌드지 // MUSIC VIDEO">
+                            <div class="pax-thumb-image-wrapper"><img src="./프로젝트 아카이브/트렌드지 - 위로위로/위로위로스틸1.png" alt="트렌드지 - 위로위로"></div>
+                            <div class="pax-metadata-panel">
+                                <span class="pax-meta-lbl">Artist</span> <span class="pax-meta-val">트렌드지</span>
+                                <span class="pax-meta-lbl">Type</span>   <span class="pax-meta-val">MUSIC VIDEO</span>
+                                <span class="pax-meta-lbl">Role</span>   <span class="pax-meta-val">촬영 / 조명</span>
+                                <span class="pax-meta-lbl">Year</span>   <span class="pax-meta-val">2025</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </footer>
         </div>
     </section>
+
 
     <!-- ROSTER & BOOKING SECTION -->
     <section class="rb-wrapper" id="rb-wrapper-main">
@@ -2383,66 +2862,76 @@
                         <div class="rb-section-meta">TOTAL_RECORDS: 04 // PAGE 01</div>
                     </div>
 
-                    <div class="rb-grid">
-                        <div class="rb-card">
-                            <div class="rb-card-image"
-                                style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&amp;w=800&amp;auto=format&amp;fit=crop');">
+                    <div class="crew-roster">
+
+                        <!-- 01 JUNG DA-BIN | 홀수 → 이미지 좌 -->
+                        <div class="crew-roster-item">
+                            <div class="crew-roster-img">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1600&auto=format&fit=crop" alt="JUNG DA-BIN">
+                                <div class="crew-img-meta">CAM A / ARRI ALEXA 35 / 35MM ANAMORPHIC</div>
                             </div>
-                            <div class="rb-card-overlay">
-                                <h2 class="rb-card-name">JUNG<br>DA-BIN</h2>
-                                <div class="rb-card-details">
-                                    <div class="rb-card-row"><span>DIR. & DP. //</span><span>00:01</span></div>
-                                    <div class="rb-card-row"><span>CAM PACKAGE</span></div>
-                                    <div class="rb-card-credits" style="font-family: 'GmarketSansLight', sans-serif;">
-                                        ARRI, FX3 등 중규모급 이상의 촬영 장비 세팅 및 운영 능력을 갖춤.</div>
+                            <div class="crew-roster-info">
+                                <div class="crew-roster-role">[ DIR. &amp; DP. ]</div>
+                                <h3 class="crew-roster-name">JUNG<br>DA-BIN</h3>
+                                <div class="crew-roster-specs">
+                                    <span>SPECIALTY: DIRECTION / CINEMATOGRAPHY</span>
+                                    <span>CAM PACKAGE: ARRI, FX3 MID–LARGE SCALE</span>
+                                    <span>BASE: GOYANG, KOREA</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="rb-card">
-                            <div class="rb-card-image"
-                                style="background-image: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&amp;w=800&amp;auto=format&amp;fit=crop'); background-position: top;">
+                        <!-- 02 KIM HYUNG-MIN | 짝수 → 이미지 우 -->
+                        <div class="crew-roster-item">
+                            <div class="crew-roster-img">
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1600&auto=format&fit=crop" alt="KIM HYUNG-MIN" style="object-position: top;">
+                                <div class="crew-img-meta">LGT GRID / LARGE-SCALE LIGHTING / DMX 512</div>
                             </div>
-                            <div class="rb-card-overlay">
-                                <h2 class="rb-card-name">KIM<br>HYUNG-MIN</h2>
-                                <div class="rb-card-details">
-                                    <div class="rb-card-row"><span>LD. //</span><span>00:02</span></div>
-                                    <div class="rb-card-row"><span>LARGE-SCALE LIGHTING</span></div>
-                                    <div class="rb-card-credits" style="font-family: 'GmarketSansLight', sans-serif;">
-                                        운영용 조명 탑차 사전 보유, 스케일감 있는 전문적인 조명 세팅 및 현장 통제.</div>
+                            <div class="crew-roster-info">
+                                <div class="crew-roster-role">[ LIGHTING DIRECTOR ]</div>
+                                <h3 class="crew-roster-name">KIM<br>HYUNG-MIN</h3>
+                                <div class="crew-roster-specs">
+                                    <span>SPECIALTY: LARGE-SCALE LIGHTING</span>
+                                    <span>SYSTEMS: DEDICATED LIGHTING TRUCK</span>
+                                    <span>BASE: GOYANG, KOREA</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="rb-card">
-                            <div class="rb-card-image"
-                                style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&amp;w=800&amp;auto=format&amp;fit=crop');">
+                        <!-- 03 SHIN HYUNG-JUNE | 홀수 → 이미지 좌 -->
+                        <div class="crew-roster-item">
+                            <div class="crew-roster-img">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1600&auto=format&fit=crop" alt="SHIN HYUNG-JUNE">
+                                <div class="crew-img-meta">CAM B / FX3 / MULTI-PLATFORM UNIT</div>
                             </div>
-                            <div class="rb-card-overlay">
-                                <h2 class="rb-card-name">SHIN<br>HYUNG-JUNE</h2>
-                                <div class="rb-card-details">
-                                    <div class="rb-card-row"><span>DIR. //</span><span>00:03</span></div>
-                                    <div class="rb-card-row"><span>VERSATILE DIR.</span></div>
-                                    <div class="rb-card-credits" style="font-family: 'GmarketSansLight', sans-serif;">
-                                        커머셜 브랜드 필름부터 유튜브 영상 등 다양한 장르와 플랫폼을 아우르는 만능 연출.</div>
+                            <div class="crew-roster-info">
+                                <div class="crew-roster-role">[ DIRECTOR ]</div>
+                                <h3 class="crew-roster-name">SHIN<br>HYUNG-JUNE</h3>
+                                <div class="crew-roster-specs">
+                                    <span>SPECIALTY: COMMERCIAL / YOUTUBE / BRANDED</span>
+                                    <span>FORMAT: DIGITAL / MULTI-PLATFORM</span>
+                                    <span>BASE: GOYANG, KOREA</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="rb-card">
-                            <div class="rb-card-image"
-                                style="background-image: url('https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&amp;w=800&amp;auto=format&amp;fit=crop');">
+                        <!-- 04 LIM JIN-WOO | 짝수 → 이미지 우 -->
+                        <div class="crew-roster-item">
+                            <div class="crew-roster-img">
+                                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1600&auto=format&fit=crop" alt="LIM JIN-WOO">
+                                <div class="crew-img-meta">PROD. UNIT / FLEX BUDGET / COORDINATOR</div>
                             </div>
-                            <div class="rb-card-overlay">
-                                <h2 class="rb-card-name">LIM<br>JIN-WOO</h2>
-                                <div class="rb-card-details">
-                                    <div class="rb-card-row"><span>PROD. //</span><span>00:04</span></div>
-                                    <div class="rb-card-row"><span>FLEX BUDGET PROD.</span></div>
-                                    <div class="rb-card-credits" style="font-family: 'GmarketSansLight', sans-serif;">기술
-                                        스태프 출신으로 팀간 소통이 원활, 연극학과 바탕의 기획력과 맞춤형 탄력 예산 운용.</div>
+                            <div class="crew-roster-info">
+                                <div class="crew-roster-role">[ PRODUCER ]</div>
+                                <h3 class="crew-roster-name">LIM<br>JIN-WOO</h3>
+                                <div class="crew-roster-specs">
+                                    <span>SPECIALTY: PRODUCTION MANAGEMENT</span>
+                                    <span>BACKGROUND: TECH STAFF / THEATER ARTS</span>
+                                    <span>BASE: GOYANG, KOREA</span>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -2650,6 +3139,11 @@
                 url: "https://videos.pexels.com/video-files/2759477/2759477-hd_1920_1080_30fps.mp4",
                 title: "DUODERM _ CAMPAIGN",
                 genre: "COMMERCIAL"
+            },
+            {
+                url: "https://videos.pexels.com/video-files/3121459/3121459-hd_1920_1080_24fps.mp4",
+                title: "위로위로 _ 트렌드지",
+                genre: "MUSIC VIDEO"
             }
         ];
 
@@ -2945,6 +3439,88 @@
                 floatPreview.classList.remove('active');
             });
         });
+
+        // === PAX: 프로젝트 아카이브 시네마틱 섹션 스크립트 ===
+        (function () {
+            const paxThumbs    = document.querySelectorAll('.pax-thumb-item');
+            const paxBgPlates  = document.querySelectorAll('.pax-bg-plate');
+            const paxTitle     = document.getElementById('pax-stage-title');
+            const paxDir       = document.getElementById('pax-stage-dir');
+            let paxHoverTimer;
+
+            function paxSetDefault() {
+                paxBgPlates.forEach(p => p.classList.remove('active'));
+                const def = document.querySelector('.pax-bg-plate[data-id="pax-item-0"]');
+                if (def) def.classList.add('active');
+                paxTitle.classList.remove('show');
+                setTimeout(() => {
+                    paxTitle.textContent = 'SELECT PROJECT';
+                    paxDir.textContent   = 'SYSTEM STANDBY';
+                    paxTitle.classList.add('show');
+                }, 200);
+            }
+
+            paxThumbs.forEach(thumb => {
+                thumb.addEventListener('mouseenter', function () {
+                    clearTimeout(paxHoverTimer);
+                    const targetId = this.dataset.target;
+                    const newTitle = this.dataset.title;
+                    const newDir   = this.dataset.dir;
+
+                    paxBgPlates.forEach(p => {
+                        p.classList.toggle('active', p.getAttribute('data-id') === targetId);
+                    });
+
+                    paxTitle.classList.remove('show');
+                    setTimeout(() => {
+                        paxTitle.textContent = newTitle;
+                        paxDir.textContent   = newDir;
+                        paxTitle.classList.add('show');
+                    }, 200);
+                });
+
+                thumb.addEventListener('mouseleave', function () {
+                    paxHoverTimer = setTimeout(paxSetDefault, 500);
+                });
+            });
+
+            // 토글 버튼
+            const paxBtns = document.querySelectorAll('.pax-toggle-btn');
+            paxBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    paxBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // 타임코드
+            const paxTcEl = document.getElementById('pax-timecode');
+            let pf = 0, ps = 0, pm = 0, ph = 10;
+            setInterval(() => {
+                if (++pf >= 24) { pf = 0; if (++ps >= 60) { ps = 0; if (++pm >= 60) { pm = 0; ph++; } } }
+                const pad = n => String(n).padStart(2, '0');
+                if (paxTcEl) paxTcEl.textContent = `${pad(ph)}:${pad(pm)}:${pad(ps)}:${pad(pf)}`;
+            }, 1000 / 24);
+
+            // 섹션 진입 시 트랙 등장 애니메이션
+            const paxTrack = document.getElementById('pax-project-track');
+            if (paxTrack) {
+                paxTrack.style.opacity = '0';
+                paxTrack.style.transform = 'translateY(20px)';
+                const obs = new IntersectionObserver(entries => {
+                    if (entries[0].isIntersecting) {
+                        setTimeout(() => {
+                            paxTrack.style.transition = 'opacity 1s ease, transform 1s ease';
+                            paxTrack.style.opacity    = '1';
+                            paxTrack.style.transform  = 'translateY(0)';
+                            setTimeout(() => paxTitle.classList.add('show'), 600);
+                        }, 300);
+                        obs.disconnect();
+                    }
+                }, { threshold: 0.3 });
+                obs.observe(document.getElementById('pax-section'));
+            }
+        })();
     </script>
 </body>
 

@@ -2801,20 +2801,27 @@
             .pax-section {
                 height: auto;
                 min-height: 100vh;
-                padding: 100px 24px 80px;
+                padding: 60px 20px;
                 background: #000;
-                overflow-y: visible;
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
             }
 
             .pax-bg-stack {
-                display: none;
-                /* Hide big bg stack on mobile gallery */
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+                opacity: 0.3;
             }
 
             .pax-ui-layer {
                 display: block;
                 position: relative;
-                padding: 0;
+                z-index: 1;
             }
 
             .pax-center-stage {
@@ -2826,84 +2833,83 @@
                 display: block;
             }
 
-            .pax-carousel-wrapper {
-                overflow: visible;
-            }
-
             .pax-track {
                 display: flex;
                 flex-direction: column;
-                gap: 60px;
-                /* Generous spacing between frames */
-                padding: 0;
+                gap: 40px;
+                padding-top: 40px;
                 opacity: 1 !important;
                 transform: none !important;
             }
 
             .pax-thumb-item {
                 width: 100%;
-                margin: 0;
+                margin-bottom: 20px;
                 transform: none !important;
-                cursor: default;
+                display: block !important;
             }
 
             .pax-thumb-image-wrapper {
                 width: 100%;
                 height: auto;
-                aspect-ratio: 9/16;
-                border: 0.5px solid rgba(255, 255, 255, 0.15);
-                border-radius: 2px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-                filter: none;
-                transition: transform 0.3s ease;
+                aspect-ratio: 16/9;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                filter: none !important;
+                background: #111;
             }
 
             .pax-metadata-panel {
                 position: relative;
                 bottom: auto;
                 left: auto;
-                opacity: 1;
-                transform: none;
-                display: block;
+                opacity: 1 !important;
+                transform: none !important;
+                display: block !important;
                 background: transparent;
                 border: none;
-                padding: 24px 0 0 0;
-                backdrop-filter: none;
-                -webkit-backdrop-filter: none;
-                text-align: center;
+                padding: 15px 0;
+                text-align: left;
+                pointer-events: auto;
             }
 
             .pax-meta-lbl {
-                display: block;
-                font-size: 7px;
-                color: rgba(255, 255, 255, 0.2);
-                margin-top: 12px;
-                letter-spacing: 0.2em;
+                display: inline-block;
+                width: 60px;
+                font-size: 8px;
+                color: rgba(255, 255, 255, 0.3);
+                text-transform: uppercase;
+                margin-bottom: 2px;
             }
 
             .pax-meta-val {
-                text-align: center;
-                font-size: 0.7rem;
-                color: rgba(255, 255, 255, 0.5);
-                white-space: normal;
-                line-height: 1.6;
-                margin-bottom: 2px;
-                letter-spacing: 0.05em;
+                display: inline-block;
+                text-align: left;
+                font-size: 10px;
+                color: rgba(255, 255, 255, 0.8);
+                margin-bottom: 4px;
             }
 
             .pax-meta-val:first-of-type {
+                display: block;
+                font-size: 1.2rem;
+                font-weight: 600;
                 color: #fff;
-                font-size: 1.1rem;
-                font-weight: 500;
-                margin-bottom: 8px;
-                letter-spacing: 0.1em;
+                margin-bottom: 10px;
                 font-family: var(--font-display);
             }
 
-            /* Hide More+ btn on mobile gallery for simplicity */
             .pax-roster-toggle {
-                margin-bottom: 40px;
-                justify-content: center;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: flex-start;
+                margin-bottom: 30px;
+            }
+
+            .pax-toggle-btn {
+                padding: 8px 12px;
+                font-size: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
             }
         }
 

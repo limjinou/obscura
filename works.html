@@ -580,18 +580,73 @@
                 margin-bottom: 0.4rem;
             }
 
-            /* Nav: tighter on mobile */
+            /* ── Nav mobile redesign ── */
+            .site-nav {
+                height: auto;
+                padding: 1rem 0 0.75rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.6rem;
+            }
+
+            /* Hide the long horizontal divider */
+            .site-nav-divider {
+                display: none;
+            }
+
+            .site-nav-logo {
+                font-size: 0.95rem;
+                letter-spacing: 0.12em;
+            }
+
+            /* Links: full-width horizontal row, all 4 visible */
+            .site-nav-links {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0;
+            }
+
+            .site-nav-links li {
+                flex: 1;
+                justify-content: center;
+            }
+
+            /* Replace line separator with lighter border-right */
             .site-nav-links li + li::before {
-                width: 20px;
-                margin: 0 0.75rem;
+                display: none;
+            }
+
+            .site-nav-links li + li {
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
             }
 
             .site-nav-links a {
                 font-size: 0.55rem;
+                letter-spacing: 0.14em;
+                opacity: 0.5;
+                padding: 0.4rem 0;
+                min-height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                text-align: center;
             }
 
-            .site-nav-divider {
-                margin: 0 1rem;
+            .site-nav-links a.active {
+                opacity: 1;
+                color: var(--accent);
+            }
+
+            /* Filter bar: draggable cursor hint */
+            .filter-bar {
+                cursor: grab;
+            }
+
+            .filter-bar.is-dragging {
+                cursor: grabbing;
+                user-select: none;
             }
 
             .eyebrow-text {
@@ -613,12 +668,6 @@
 
             .col-title {
                 font-size: 1.05rem;
-            }
-
-            /* Hide ABOUT + CONTACT on very small screens, keep PROJECT + WORKS */
-            .site-nav-links li:nth-child(3),
-            .site-nav-links li:nth-child(4) {
-                display: none;
             }
 
             .archive-item {
@@ -958,6 +1007,40 @@
             currentFilter = btn.dataset.filter;
             renderList(currentFilter);
         });
+
+        // ── Filter bar drag-to-scroll ──
+        (() => {
+            let isDragging = false;
+            let startX = 0;
+            let scrollStart = 0;
+            let didDrag = false;
+
+            filterBar.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                didDrag = false;
+                startX = e.pageX - filterBar.getBoundingClientRect().left;
+                scrollStart = filterBar.scrollLeft;
+                filterBar.classList.add('is-dragging');
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const x = e.pageX - filterBar.getBoundingClientRect().left;
+                const walk = (x - startX) * 1.2;
+                if (Math.abs(walk) > 4) didDrag = true;
+                filterBar.scrollLeft = scrollStart - walk;
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                filterBar.classList.remove('is-dragging');
+            });
+
+            // Prevent click on filter-btn if user dragged
+            filterBar.addEventListener('click', (e) => {
+                if (didDrag) e.stopPropagation();
+            }, true);
+        })();
 
         // Init
         buildBackgrounds();

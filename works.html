@@ -328,6 +328,16 @@
             color: var(--color-text-muted);
         }
 
+        /* col-meta: mobile-only, hidden on desktop */
+        .col-meta {
+            display: none;
+        }
+
+        /* Ensure desktop grid columns are properly shown */
+        .col-cat, .col-year, .col-format {
+            display: block;
+        }
+
         .col-action {
             display: flex;
             justify-content: flex-end;
@@ -427,10 +437,49 @@
             text-transform: uppercase;
         }
 
-        /* ── Mobile ── */
-        @media (max-width: 1024px) {
+        /* ── Mobile / Tablet ── */
+        @media (max-width: 768px) {
+            /* Hide center overlay text — bg image does the job */
+            .display-type-container {
+                display: none;
+            }
+
+            /* Stronger gradient so list text is always readable */
+            .bg-gradient {
+                background: linear-gradient(0deg,
+                    rgba(3, 3, 3, 0.92) 0%,
+                    rgba(3, 3, 3, 0.55) 50%,
+                    rgba(3, 3, 3, 0.15) 100%);
+            }
+
+            body, html {
+                /* Use dynamic viewport height to account for mobile browser chrome */
+                height: 100dvh;
+            }
+
+            #viewport {
+                height: 100dvh;
+            }
+
             .ui-layer {
-                padding: 0 1.5rem 2rem;
+                padding: 0 1.25rem env(safe-area-inset-bottom, 1.5rem);
+                padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+            }
+
+            .archive-container {
+                /* Fill remaining space below nav */
+                flex: 1;
+                max-height: none;
+                min-height: 0;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .archive-list {
+                flex: 1;
+                min-height: 0;
+                -webkit-overflow-scrolling: touch;
             }
 
             .archive-header {
@@ -440,8 +489,17 @@
             .archive-item {
                 grid-template-columns: 1fr auto;
                 grid-template-rows: auto auto;
-                gap: 0.4rem;
-                padding: 1.25rem 0;
+                gap: 0.3rem;
+                padding: 1rem 0;
+                /* No hover shift on touch */
+                transition: background-color 0.2s ease, border-bottom-color 0.2s ease;
+                -webkit-tap-highlight-color: transparent;
+                user-select: none;
+            }
+
+            .archive-item.touch-active {
+                background-color: rgba(255, 255, 255, 0.04);
+                border-bottom-color: rgba(255, 51, 0, 0.3);
             }
 
             .col-id {
@@ -449,38 +507,122 @@
             }
 
             .col-title {
-                grid-column: 1/2;
-                grid-row: 1/2;
-                font-size: 1.3rem;
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+                font-size: 1.2rem;
             }
 
+            /* Hide individual cols — replaced by col-meta */
             .col-cat,
             .col-year,
             .col-format {
-                grid-column: 1/2;
-                grid-row: 2/3;
-                display: inline-block;
-                margin-right: 1rem;
-                font-size: 0.6rem;
+                display: none;
             }
 
+            .col-meta {
+                display: block;
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+                font-family: var(--font-mono);
+                font-size: 0.58rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--color-text-muted);
+            }
+
+            /* Arrow always visible on touch */
             .col-action {
-                grid-column: 2/3;
-                grid-row: 1/3;
+                grid-column: 2 / 3;
+                grid-row: 1 / 3;
                 align-self: center;
+                opacity: 1;
+                transform: none;
+            }
+
+            .icon-arrow-circle {
+                width: 34px;
+                height: 34px;
             }
 
             .masking-text {
-                font-size: 28vw;
+                font-size: 26vw;
             }
 
+            /* Filter bar: single-row horizontal scroll */
             .filter-bar {
-                flex-wrap: wrap;
-                gap: 0.5rem;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+                scrollbar-width: none;
+                -webkit-overflow-scrolling: touch;
+                gap: 0;
+                margin-bottom: 0.75rem;
+                /* Fade edges */
+                -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 90%, transparent 100%);
+                mask-image: linear-gradient(to right, transparent 0%, black 5%, black 90%, transparent 100%);
+                padding: 0 0.5rem;
             }
+
+            .filter-bar::-webkit-scrollbar { display: none; }
 
             .filter-btn {
-                margin-right: 1rem;
+                flex-shrink: 0;
+                margin-right: 1.25rem;
+                padding: 0.5rem 0;
+                font-size: 0.6rem;
+                /* Larger tap target */
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+            }
+
+            .archive-meta {
+                margin-bottom: 0.4rem;
+            }
+
+            /* Nav: tighter on mobile */
+            .site-nav-links li + li::before {
+                width: 20px;
+                margin: 0 0.75rem;
+            }
+
+            .site-nav-links a {
+                font-size: 0.55rem;
+            }
+
+            .site-nav-divider {
+                margin: 0 1rem;
+            }
+
+            .eyebrow-text {
+                font-size: 0.65rem;
+                letter-spacing: 0.3em;
+            }
+        }
+
+        /* ── Small phones ── */
+        @media (max-width: 430px) {
+            .ui-layer {
+                padding: 0 1rem;
+                padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+            }
+
+            .masking-text {
+                font-size: 30vw;
+            }
+
+            .col-title {
+                font-size: 1.05rem;
+            }
+
+            /* Hide ABOUT + CONTACT on very small screens, keep PROJECT + WORKS */
+            .site-nav-links li:nth-child(3),
+            .site-nav-links li:nth-child(4) {
+                display: none;
+            }
+
+            .archive-item {
+                padding: 0.875rem 0;
             }
         }
     </style>
@@ -758,11 +900,22 @@
                     <div class="col col-cat">${proj.category}</div>
                     <div class="col col-year">${proj.year}</div>
                     <div class="col col-format">${proj.role}</div>
+                    <div class="col col-meta">${proj.category} · ${proj.year} · ${proj.role}</div>
                     <div class="col col-action">
                         <div class="icon-arrow-circle">${arrowSVG}</div>
                     </div>
                 `;
                 li.addEventListener('mouseenter', () => activateProject(globalIndex));
+
+                // Touch: activate on tap + visual feedback
+                li.addEventListener('touchstart', (e) => {
+                    activateProject(globalIndex);
+                    li.classList.add('touch-active');
+                }, { passive: true });
+                li.addEventListener('touchend', () => {
+                    setTimeout(() => li.classList.remove('touch-active'), 300);
+                }, { passive: true });
+
                 archiveList.appendChild(li);
             });
 

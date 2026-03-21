@@ -4,9 +4,8 @@
     {
       "name": "Python Static Server",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "3000", "--directory", "C:/Users/임진우/OneDrive/Desktop/obscura"],
-      "port": 3000,
-      "autoPort": true
+      "runtimeArgs": ["-m", "http.server", "8080", "--directory", "C:/Users/임진우/OneDrive/Desktop/obscura"],
+      "port": 8080
     }
   ]
 }
